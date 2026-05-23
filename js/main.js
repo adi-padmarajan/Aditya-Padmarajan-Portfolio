@@ -340,7 +340,7 @@
       });
     }
 
-    const exitTargets = [...metaCols, lead, cue, status].filter(Boolean);
+    const exitTargets = [lead, cue, status].filter(Boolean);
     if (exitTargets.length) {
       gsap.to(exitTargets, {
         opacity: 0,
