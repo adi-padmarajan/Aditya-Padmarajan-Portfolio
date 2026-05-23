@@ -314,9 +314,69 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 }
 .nav .links a:hover::after { transform: scaleX(1); }
 
+/* Hamburger toggle — hidden on desktop */
+.nav-toggle {
+  display: none;
+  position: relative;
+  width: 36px; height: 36px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  color: #fff;
+  -webkit-tap-highlight-color: transparent;
+  z-index: 102;
+}
+.nav-toggle span {
+  position: absolute;
+  left: 8px; right: 8px;
+  height: 1.5px;
+  background: currentColor;
+  transition: top .3s var(--ease), transform .4s var(--ease);
+}
+.nav-toggle span:nth-child(1) { top: 13px; }
+.nav-toggle span:nth-child(2) { top: 21px; }
+.nav.is-open .nav-toggle span:nth-child(1) { top: 17px; transform: rotate(45deg); }
+.nav.is-open .nav-toggle span:nth-child(2) { top: 17px; transform: rotate(-45deg); }
+
 @media (max-width: 720px) {
-  .nav .links { gap: 16px; }
-  .nav .links a:nth-child(n+4) { display: none; }
+  .nav-toggle { display: block; }
+  .nav .mark { z-index: 102; }
+
+  .nav .links {
+    position: fixed;
+    inset: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 36px;
+    padding: 80px var(--gutter) 40px;
+    background: rgba(8, 8, 10, 0.96);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    font-size: 22px;
+    letter-spacing: 0.06em;
+    color: #fff;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .35s var(--ease), visibility .35s var(--ease);
+    z-index: 101;
+  }
+  .nav .links a { opacity: 0; transform: translateY(8px); transition: opacity .4s var(--ease), transform .4s var(--ease); }
+  .nav.is-open .links { opacity: 1; visibility: visible; pointer-events: auto; }
+  .nav.is-open .links a { opacity: 1; transform: none; transition-delay: .12s; }
+  .nav.is-open .links a:nth-child(2) { transition-delay: .18s; }
+  .nav.is-open .links a:nth-child(3) { transition-delay: .24s; }
+  .nav.is-open .links a:nth-child(4) { transition-delay: .30s; }
+
+  /* When the panel is open, drop the topbar's difference-blend so the overlay reads correctly */
+  .nav.is-open { mix-blend-mode: normal; }
+
+  /* Override section-light link color while the dark overlay is showing */
+  .section-light .nav.is-open .links a { color: #fff; }
+
+  body.menu-open { overflow: hidden; }
 }
 
 /* ========== Cursor ========== */

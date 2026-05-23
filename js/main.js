@@ -34,6 +34,29 @@
   })();
 
   /* ───────────────────────────────────────────────────────────
+     Mobile hamburger menu
+     ─────────────────────────────────────────────────────────── */
+  (function mobileMenu() {
+    const nav = document.querySelector(".nav");
+    const toggle = nav && nav.querySelector(".nav-toggle");
+    const panel = nav && nav.querySelector(".links");
+    if (!nav || !toggle || !panel) return;
+
+    const setOpen = (open) => {
+      nav.classList.toggle("is-open", open);
+      document.body.classList.toggle("menu-open", open);
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      if (window.lenis) { open ? window.lenis.stop() : window.lenis.start(); }
+    };
+
+    toggle.addEventListener("click", () => setOpen(!nav.classList.contains("is-open")));
+    panel.addEventListener("click", (e) => { if (e.target.tagName === "A") setOpen(false); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && nav.classList.contains("is-open")) setOpen(false); });
+    window.addEventListener("resize", () => { if (window.innerWidth > 720 && nav.classList.contains("is-open")) setOpen(false); });
+  })();
+
+  /* ───────────────────────────────────────────────────────────
      Lenis smooth scroll
      ─────────────────────────────────────────────────────────── */
   if (window.Lenis && !reducedMotion) {
