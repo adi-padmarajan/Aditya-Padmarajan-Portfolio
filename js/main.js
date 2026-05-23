@@ -267,6 +267,15 @@
     const cue      = hero.querySelector(".hero-bottom .scroll-cue");
     const title    = hero.querySelector(".hero-title");
     const rose     = hero.querySelector(".hero-title .rose");
+    const status   = hero.querySelector(".hero-status");
+    const statusRows = status ? status.querySelectorAll(".hs-row, .hs-block") : [];
+
+    const dateEl = status && status.querySelector("[data-hs-date]");
+    if (dateEl) {
+      const now = new Date();
+      const month = now.toLocaleString("en-US", { month: "long" });
+      dateEl.textContent = `Live · ${month} ${now.getFullYear()}`;
+    }
     const marquee  = document.querySelector(".marquee");
 
     /* a) Entrance polish — meta, lead, scroll cue rise after title chars */
@@ -286,6 +295,12 @@
       gsap.fromTo(cue,
         { opacity: 0, x: 20 },
         { opacity: 1, x: 0, duration: 1.1, ease: "expo.out", delay: 1.2 }
+      );
+    }
+    if (statusRows.length) {
+      gsap.fromTo(statusRows,
+        { opacity: 0, x: 18 },
+        { opacity: 1, x: 0, duration: 1.0, ease: "expo.out", stagger: 0.09, delay: 0.85 }
       );
     }
 
@@ -325,7 +340,7 @@
       });
     }
 
-    const exitTargets = [...metaCols, lead, cue].filter(Boolean);
+    const exitTargets = [...metaCols, lead, cue, status].filter(Boolean);
     if (exitTargets.length) {
       gsap.to(exitTargets, {
         opacity: 0,

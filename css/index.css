@@ -98,6 +98,79 @@
   .hero-bottom .scroll-cue { justify-self: start; }
 }
 
+/* ====== Hero — right-anchored status block ====== */
+.hero-status {
+  position: absolute;
+  right: var(--gutter);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding-left: 18px;
+  border-left: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  z-index: 2;
+  max-width: 22ch;
+  pointer-events: none;
+}
+.hero-status .hs-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--accent);
+}
+.hero-status .hs-pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 rgba(212, 165, 116, 0.55);
+  animation: hsPulse 2.4s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes hsPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(212, 165, 116, 0.55);
+    opacity: 1;
+  }
+  50% {
+    box-shadow: 0 0 0 9px rgba(212, 165, 116, 0);
+    opacity: 0.7;
+  }
+}
+.hero-status .hs-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.hero-status .hs-lbl {
+  color: var(--fg-dim);
+  opacity: 0.6;
+  font-size: 10.5px;
+}
+.hero-status .hs-val {
+  color: var(--fg);
+  letter-spacing: 0.08em;
+  line-height: 1.45;
+  text-transform: none;
+  font-size: 12.5px;
+}
+.hero-status .hs-coord {
+  color: var(--fg-dim);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  margin-top: 2px;
+}
+
+@media (max-width: 1100px) {
+  .hero-status { display: none; }
+}
+
 /* ====== Section index ====== */
 .section-head {
   display: grid;
