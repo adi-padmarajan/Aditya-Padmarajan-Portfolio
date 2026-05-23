@@ -254,6 +254,109 @@
   }
 
   /* ───────────────────────────────────────────────────────────
+     Hero cinematic — cursor-led italic + scroll exit + marquee handoff
+     Index page only; layers on top of the existing char-split reveal.
+     ─────────────────────────────────────────────────────────── */
+  (function heroMotion() {
+    if (reducedMotion || !window.gsap) return;
+    const hero = document.querySelector(".hero");
+    if (!hero) return;
+
+    const metaCols = hero.querySelectorAll(".hero-meta .col");
+    const lead     = hero.querySelector(".hero-bottom .lead");
+    const cue      = hero.querySelector(".hero-bottom .scroll-cue");
+    const title    = hero.querySelector(".hero-title");
+    const rose     = hero.querySelector(".hero-title .rose");
+    const marquee  = document.querySelector(".marquee");
+
+    /* a) Entrance polish — meta, lead, scroll cue rise after title chars */
+    if (metaCols.length) {
+      gsap.fromTo(metaCols,
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0, duration: 1.0, ease: "expo.out", stagger: 0.08, delay: 0.4 }
+      );
+    }
+    if (lead) {
+      gsap.fromTo(lead,
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 1.1, ease: "expo.out", delay: 1.05 }
+      );
+    }
+    if (cue) {
+      gsap.fromTo(cue,
+        { opacity: 0, x: 20 },
+        { opacity: 1, x: 0, duration: 1.1, ease: "expo.out", delay: 1.2 }
+      );
+    }
+
+    /* b) Cursor-led italic word — Padmarajan leans toward the pointer */
+    if (rose && !isMobile) {
+      const xTo    = gsap.quickTo(rose, "x",     { duration: 0.9, ease: "power3.out" });
+      const yTo    = gsap.quickTo(rose, "y",     { duration: 0.9, ease: "power3.out" });
+      const skewTo = gsap.quickTo(rose, "skewX", { duration: 1.0, ease: "power3.out" });
+
+      hero.addEventListener("mousemove", (e) => {
+        const r = rose.getBoundingClientRect();
+        const cx = r.left + r.width / 2;
+        const cy = r.top  + r.height / 2;
+        const dx = (e.clientX - cx) * 0.04;
+        const dy = (e.clientY - cy) * 0.04;
+        const skew = Math.max(-3, Math.min(3, (e.clientX - cx) * 0.004));
+        xTo(dx); yTo(dy); skewTo(skew);
+      });
+      hero.addEventListener("mouseleave", () => { xTo(0); yTo(0); skewTo(0); });
+    }
+
+    /* c) Scroll-driven exit + marquee handoff */
+    if (!window.ScrollTrigger) return;
+
+    if (title) {
+      gsap.to(title, {
+        yPercent: -22,
+        scale: 1.06,
+        opacity: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: hero,
+          start: "top top",
+          end: "bottom top",
+          scrub: 0.8,
+        },
+      });
+    }
+
+    const exitTargets = [...metaCols, lead, cue].filter(Boolean);
+    if (exitTargets.length) {
+      gsap.to(exitTargets, {
+        opacity: 0,
+        y: -20,
+        ease: "none",
+        scrollTrigger: {
+          trigger: hero,
+          start: "top top",
+          end: "55% top",
+          scrub: 0.8,
+        },
+      });
+    }
+
+    if (marquee) {
+      gsap.fromTo(marquee,
+        { yPercent: 30, opacity: 0 },
+        {
+          yPercent: 0, opacity: 1, ease: "none",
+          scrollTrigger: {
+            trigger: hero,
+            start: "35% top",
+            end: "bottom top",
+            scrub: 0.8,
+          },
+        }
+      );
+    }
+  })();
+
+  /* ───────────────────────────────────────────────────────────
      Magnetic hover — pulls element toward cursor on proximity
      Apply to .btn, .btn-circle, .btn-metal, [data-magnet]
      ─────────────────────────────────────────────────────────── */
