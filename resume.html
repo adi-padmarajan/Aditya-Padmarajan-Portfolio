@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resume — Aditya Padmarajan</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+
+<style>
+/* Resume layout */
+.cv-head {
+  padding: 22vh 0 60px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: end;
+}
+.cv-head .lbl {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  margin-bottom: 28px;
+}
+.cv-head h1 {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(56px, 11vw, 180px);
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+}
+.cv-head h1 em {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--accent);
+}
+@media (max-width: 720px) {
+  .cv-head { grid-template-columns: 1fr; }
+}
+
+.cv-quick {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  padding: 60px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.cv-quick .item .lbl {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  margin-bottom: 12px;
+}
+.cv-quick .item .val {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+}
+.cv-quick .item .val a:hover { color: var(--accent); }
+@media (max-width: 720px) {
+  .cv-quick { grid-template-columns: 1fr 1fr; gap: 28px; }
+}
+
+/* Section block */
+.cv-section {
+  padding: 100px 0 60px;
+}
+.cv-section .head {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 40px;
+  align-items: end;
+  margin-bottom: 60px;
+}
+.cv-section .head .lbl {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+.cv-section .head .lbl::before {
+  content: "";
+  display: inline-block;
+  width: 28px; height: 1px;
+  background: var(--accent);
+  vertical-align: middle;
+  margin-right: 12px;
+}
+.cv-section .head h2 {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(40px, 6vw, 84px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.cv-section .head h2 em { font-family: var(--font-display); font-style: italic; color: var(--accent); }
+@media (max-width: 720px) {
+  .cv-section .head { grid-template-columns: 1fr; gap: 14px; margin-bottom: 40px; }
+}
+
+.cv-entry {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 40px;
+  padding: 40px 0;
+  border-top: 1px solid var(--line);
+  align-items: start;
+}
+.cv-entry:last-child { border-bottom: 1px solid var(--line); }
+.cv-entry .when {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--fg-dim);
+}
+.cv-entry .where {
+  font-family: var(--font-sans);
+  font-size: clamp(22px, 2.4vw, 30px);
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+.cv-entry .where em { font-family: var(--font-display); font-style: italic; color: var(--accent); }
+.cv-entry .role {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  margin-bottom: 18px;
+}
+.cv-entry ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.cv-entry ul li {
+  font-size: 16px;
+  line-height: 1.6;
+  padding-left: 24px;
+  position: relative;
+}
+.cv-entry ul li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0.7em;
+  width: 12px; height: 1px;
+  background: var(--accent);
+}
+.cv-entry ul li strong { color: var(--accent); font-weight: 500; }
+@media (max-width: 720px) {
+  .cv-entry { grid-template-columns: 1fr; gap: 16px; padding: 30px 0; }
+}
+
+/* Skills grid */
+.cv-skills {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+.cv-skills .group .lbl {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  margin-bottom: 18px;
+}
+.cv-skills .pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.cv-skills .pill {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--fg);
+  transition: border-color .3s, color .3s;
+}
+.cv-skills .pill:hover { border-color: var(--accent); color: var(--accent); }
+@media (max-width: 720px) {
+  .cv-skills { grid-template-columns: 1fr; gap: 28px; }
+}
+
+/* Download CTA */
+.dl-card {
+  margin-top: 60px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: center;
+  padding: 40px 48px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.dl-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at top right, rgba(212,165,116,0.06), transparent 50%);
+  pointer-events: none;
+}
+.dl-card .meta { position: relative; }
+.dl-card .meta .lbl {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  margin-bottom: 10px;
+}
+.dl-card .meta .file {
+  font-family: var(--font-sans);
+  font-size: clamp(24px, 3vw, 36px);
+  letter-spacing: -0.02em;
+}
+.dl-card .meta .file em { font-family: var(--font-display); font-style: italic; color: var(--accent); }
+.dl-card .meta .info {
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--fg-dim);
+}
+.dl-card .dl {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 22px 36px;
+  background: var(--accent);
+  color: var(--bg);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background .4s, transform .4s var(--ease-out), color .4s;
+}
+.dl-card .dl:hover { background: var(--fg); transform: scale(1.04); }
+.dl-card .dl .arrow { font-size: 16px; transition: transform .3s var(--ease); }
+.dl-card .dl:hover .arrow { transform: translateY(2px); }
+@media (max-width: 720px) {
+  .dl-card { grid-template-columns: 1fr; padding: 32px; gap: 24px; }
+}
+
+/* ===== Light environment overrides ===== */
+.section-light .cv-quick { border-color: var(--line-light); }
+.section-light .cv-quick .item .lbl { color: var(--fg-light-dim); }
+.section-light .cv-quick .item .val { color: var(--fg-light); }
+.section-light .cv-section .head .lbl { color: var(--fg-light-dim); }
+.section-light .cv-section .head h2 { color: var(--fg-light); }
+.section-light .cv-entry { border-color: var(--line-light) !important; }
+.section-light .cv-entry .when { color: var(--fg-light-dim); }
+.section-light .cv-entry .where { color: var(--fg-light); }
+.section-light .cv-entry .role { color: var(--fg-light-dim); }
+.section-light .cv-entry ul li { color: var(--fg-light); }
+.section-light .cv-entry ul li::before { background: var(--accent); }
+.section-light .cv-skills .group .lbl { color: var(--fg-light-dim); }
+.section-light .cv-skills .pill { border-color: var(--line-light); color: var(--fg-light); }
+.section-light .cv-skills .pill:hover { border-color: var(--accent); color: var(--accent-deep); }
+
+/* Download card on light bg becomes a striking dark anchor */
+.section-light .dl-card {
+  background: var(--bg);
+  border-color: transparent;
+  color: var(--fg);
+}
+.section-light .dl-card .meta .lbl { color: var(--fg-dim); }
+.section-light .dl-card .meta .file { color: var(--fg); }
+.section-light .dl-card .meta .info { color: var(--fg-dim); }
+</style>
+</head>
+<body>
+
+<div class="veil"></div>
+
+<nav class="nav">
+  <a class="mark" href="index.html"><span class="dot"></span>Aditya Padmarajan</a>
+  <div class="links">
+    <a href="index.html">home</a>
+    <a href="projects.html">work</a>
+    <a href="index.html#marathons">marathons</a>
+    <a href="/cdn-cgi/l/email-protection#c2a3a6abb6bba3ecb2a3a6afa3b0a3a8a3ac82a5afa3abaeeca1adaf">contact</a>
+  </div>
+</nav>
+
+<section class="wrap cv-head" data-screen-label="Resume · Head">
+  <div>
+    <div class="lbl" data-anim="rise">— CV · Updated May 2026</div>
+    <h1>
+      <span class="split-line"><span class="inner">Aditya</span></span>
+      <span class="split-line"><span class="inner">Padmarajan<em>.</em></span></span>
+    </h1>
+  </div>
+  <a class="btn-circle" data-hover href="assets/Aditya_Padmarajan_Resume.pdf" download>Download<br>PDF ↓</a>
+</section>
+
+<section class="section-light">
+  <div class="deco-num">CV</div>
+  <div class="wrap">
+
+  <div class="cv-quick">
+    <div class="item"><div class="lbl">Email</div><div class="val"><a href="/cdn-cgi/l/email-protection#aecfcac7dad7cf80decfcac3cfdccfc4cfc0eec9c3cfc7c280cdc1c3" data-hover><span class="__cf_email__" data-cfemail="5d3c393429243c732d3c39303c2f3c373c331d3a303c3431733e3230">[email&#160;protected]</span></a></div></div>
+    <div class="item"><div class="lbl">Phone</div><div class="val">250 · 884 · 9463</div></div>
+    <div class="item"><div class="lbl">Site</div><div class="val"><a href="https://adityapadmarajan.com" data-hover>adityapadmarajan.com</a></div></div>
+    <div class="item"><div class="lbl">Elsewhere</div><div class="val"><a href="https://linkedin.com/in/aditya-padmarajan" data-hover>linkedin</a> · <a href="https://github.com/adi-padmarajan" data-hover>github</a></div></div>
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="cv-section">
+    <div class="head" data-anim="rise">
+      <div class="lbl">01 — Education &amp; Awards</div>
+      <h2>The <em>school</em> bit.</h2>
+    </div>
+
+    <div class="cv-entry" data-anim="rise">
+      <div class="when">Expected Aug. 2027<br>Victoria, BC</div>
+      <div>
+        <div class="where">University of Victoria</div>
+        <div class="role">B.S. Computer Science · Software Systems Option · Business Minor (Fourth Year)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div class="cv-section">
+    <div class="head" data-anim="rise">
+      <div class="lbl">02 — Experience</div>
+      <h2>Where I&rsquo;ve <em>shipped</em>.</h2>
+    </div>
+
+    <div class="cv-entry" data-anim="rise">
+      <div class="when">Mar. 2026 — May 2026<br>Toronto, ON</div>
+      <div>
+        <div class="where">RBC Borealis</div>
+        <div class="role">AI &amp; Machine Learning Mentee</div>
+        <ul>
+          <li>Conducted exploratory data analysis on <strong>1,500+ longitudinal youth health engagement records</strong> spanning 3+ years in a team of 4 mentees alongside 2 senior AI researchers, surfacing disengagement signals across 20+ behavioural features using Python, Pandas, and NumPy.</li>
+          <li>Reduced high-dimensional engagement data to 2D embeddings by implementing <strong>UMAP clustering</strong> in Python and scikit-learn, isolating 4+ distinct user cohorts to inform downstream model design.</li>
+          <li>Engineered an ML pipeline to flag at-risk youth navigating chronic illness by training <strong>PyTorch</strong> models on 3+ years of longitudinal engagement data, enabling earlier clinical intervention.</li>
+          <li>Designed an analytics dashboard serving <strong>4+ clinical and program teams</strong> by visualizing retention curves, engagement trends, and disengagement risk flags using Python, Matplotlib, and GA4.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cv-entry" data-anim="rise">
+      <div class="when">May 2024 — Sept. 2025<br>Victoria, BC</div>
+      <div>
+        <div class="where">University of Victoria</div>
+        <div class="role">UVic Bound Student Leader</div>
+        <ul>
+          <li>Onboarded <strong>500+ incoming international students</strong> by delivering peer mentorship and transition programming across 15+ virtual and in-person events spanning 2 summers.</li>
+          <li>Coordinated <strong>15+ large-scale orientation events</strong> by partnering with 5 fellow student leaders and 20+ International Centre staff, streamlining logistics across virtual and in-person formats.</li>
+          <li>Boosted student engagement and inclusion by <strong>30%</strong> by producing social media content including posts, captions, and short-form video, and advocating for student needs in planning sessions with university stakeholders.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- HACKATHONS -->
+  <div class="cv-section">
+    <div class="head" data-anim="rise">
+      <div class="lbl">03 — Hackathons</div>
+      <h2>Four weekends, <em>four</em> places.</h2>
+    </div>
+
+    <div class="cv-entry" data-anim="rise">
+      <div class="when">May 2026</div>
+      <div>
+        <div class="where">Pulse <em>—</em> Web Summit Vancouver Hackathon 2026</div>
+        <div class="role"><strong style="color:var(--accent)">Winner</strong> · TypeScript · React · Supabase · Claude API</div>
+        <ul>
+          <li>Won <strong>1st place</strong> at Web Summit’s flagship hackathon by shipping Pulse, a real-time networking platform for live events with <strong>13 integrated screens in under 3 hours</strong> alongside 1 teammate.</li>
+          <li>Built an AI-powered matching engine surfacing context-aware connections across <strong>12+ attendee profiles</strong> by integrating Claude API with Supabase-backed quest data, generating personalized match explanations and conversation openers.</li>
+          <li>Designed a live spatial radar visualization rendering <strong>10+ concurrent quests</strong> across 3 proximity zones using custom SVG animations and Framer Motion state transitions.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cv-entry" data-anim="rise">
+      <div class="when">Jan. 2026</div>
+      <div>
+        <div class="where">PreCheckAI <em>—</em> nwHacks 2026</div>
+        <div class="role"><strong style="color:var(--accent)">Shortlisted for Best use of Gemini API</strong> · TypeScript · React · Gemini API</div>
+        <ul>
+          <li>Led a <strong>4-person team</strong> to ship a healthtech MVP among <strong>100+ competing teams in under 24 hours</strong>, building an AI-powered health insurance claims assistant from ideation to demo.</li>
+          <li>Reduced claim-denial risk by building an LLM pre-checker that validated claim submissions against <strong>10+ required fields</strong> and flagged missing documentation before submission, using FastAPI and Python.</li>
+          <li>Accelerated end-to-end claim handling by shipping <strong>3 distinct user flows</strong> (Prevention, Pre-Submission, and Appeal) covering the full claim lifecycle, built in React and TypeScript.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cv-entry" data-anim="rise">
+      <div class="when">Jan. 2026</div>
+      <div>
+        <div class="where">Lantern <em>—</em> INSPIRE Hackathon 2026</div>
+        <div class="role"><strong style="color:var(--accent)">Runner-Up</strong> · TypeScript · React · Supabase · Gemini API</div>
+        <ul>
+          <li>Placed <strong>2nd as runner-up</strong> by shipping a UVic AI wellness companion with 5+ integrated features in under 24 hours alongside 1 teammate, using FastAPI, React, and TypeScript.</li>
+          <li>Generated context-aware Wellness Playbooks for <strong>1,000+ possible user states</strong> by integrating the Gemini API with Supabase-backed user profiles, delivering tailored mental health resources on demand.</li>
+          <li>Adapted UI and content in real time to <strong>7+ weather conditions</strong> and 3 crisis-severity tiers by wiring Open-Meteo data into a React theming layer, escalating high-risk users to immediate support resources.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SKILLS -->
+  <div class="cv-section">
+    <div class="head" data-anim="rise">
+      <div class="lbl">04 — Technical</div>
+      <h2>The <em>kit</em>.</h2>
+    </div>
+
+    <div class="cv-skills">
+      <div class="group" data-anim="rise">
+        <div class="lbl">Languages</div>
+        <div class="pills">
+          <span class="pill">Python</span>
+          <span class="pill">Java</span>
+          <span class="pill">C</span>
+          <span class="pill">JavaScript</span>
+          <span class="pill">TypeScript</span>
+          <span class="pill">SQL</span>
+        </div>
+      </div>
+      <div class="group" data-anim="rise">
+        <div class="lbl">Frameworks &amp; Libraries</div>
+        <div class="pills">
+          <span class="pill">React</span>
+          <span class="pill">FastAPI</span>
+          <span class="pill">Tailwind CSS</span>
+          <span class="pill">PyTorch</span>
+          <span class="pill">scikit-learn</span>
+          <span class="pill">Pandas</span>
+          <span class="pill">Plotly</span>
+          <span class="pill">Streamlit</span>
+          <span class="pill">Matplotlib</span>
+        </div>
+      </div>
+      <div class="group" data-anim="rise">
+        <div class="lbl">Tools &amp; Platforms</div>
+        <div class="pills">
+          <span class="pill">Git (GitHub/GitLab)</span>
+          <span class="pill">Docker</span>
+          <span class="pill">Kubernetes</span>
+          <span class="pill">Linux</span>
+          <span class="pill">Supabase</span>
+          <span class="pill">Jupyter</span>
+          <span class="pill">Microsoft 365</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXTRACURRICULAR -->
+  <div class="cv-section">
+    <div class="head" data-anim="rise">
+      <div class="lbl">05 — Extracurricular</div>
+      <h2>6 marathons. <em>One</em> long lesson.</h2>
+    </div>
+
+    <div class="cv-entry" data-anim="rise">
+      <div class="when">Oct. 2022 — Oct. 2025</div>
+      <div>
+        <div class="where">6x Full Marathon Runner <em>—</em> 42.2 Km (26.2 Miles)</div>
+        <div class="role">Discipline · Consistency · Long-term execution</div>
+        <ul>
+          <li>Completed <strong>6 full marathons in 3 years</strong> while studying internationally at UVic, improving from <strong>4:46:06 (RVM 2022)</strong> to <strong>3:26:00 (RVM 2025)</strong> — a <strong>28% time reduction</strong> demonstrating discipline, consistency, and long-term execution.</li>
+          <li>Full log on the <a href="index.html#marathons" style="color:var(--accent); border-bottom:1px solid var(--accent)">marathons page</a>.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOWNLOAD CARD -->
+  <div class="cv-section" style="padding-top: 40px;">
+    <div class="dl-card" data-anim="rise">
+      <div class="meta">
+        <div class="lbl">— Portable copy</div>
+        <div class="file">Aditya_Padmarajan_<em>Resume</em>.pdf</div>
+        <div class="info">1 page · Updated May 2026</div>
+      </div>
+      <a class="dl" data-hover href="assets/Aditya_Padmarajan_Resume.pdf" download>
+        Download PDF <span class="arrow">↓</span>
+      </a>
+    </div>
+  </div>
+
+  </div>
+</section>
+
+<footer class="foot wrap">
+  <div class="row">
+    <div><h3>Index</h3><ul><li><a href="index.html">Home</a></li><li><a href="projects.html">All projects</a></li><li><a href="index.html#marathons">Marathons</a></li><li><a href="resume.html">Resume</a></li></ul></div>
+    <div><h3>Elsewhere</h3><ul><li><a href="/cdn-cgi/l/email-protection#e0818489949981ce9081848d8192818a818ea0878d81898cce838f8d">Email</a></li><li><a href="https://github.com/adi-padmarajan" target="_blank" rel="noopener">GitHub ↗</a></li><li><a href="https://linkedin.com/in/aditya-padmarajan" target="_blank" rel="noopener">LinkedIn ↗</a></li><li><a href="https://www.strava.com/athlete" target="_blank" rel="noopener">Strava ↗</a></li></ul></div>
+    <div><h3>Now</h3><ul><li>Final year @ UVic CS</li><li>RBC Borealis · Mentee</li><li>Marathon block · spring 2026</li><li>Open to full-time</li></ul></div>
+  </div>
+  <div class="legal"><span>© 2026 Aditya Padmarajan</span><span>Designed in Victoria · Coded in &lt;coffee/&gt;</span></div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projects — Aditya Padmarajan</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+
+<style>
+.page-head {
+  padding: 22vh 0 8vh;
+}
+.page-head .lbl {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  margin-bottom: 24px;
+}
+.page-head h1 {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(56px, 11vw, 180px);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+.page-head h1 em {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--accent);
+}
+.page-head .sub {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(20px, 2.2vw, 28px);
+  color: var(--fg-dim);
+  margin-top: 30px;
+  max-width: 50ch;
+}
+
+/* Projects grid */
+.proj-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 4vw 30px;
+  margin-top: 60px;
+  padding-bottom: 80px;
+}
+.proj-card {
+  grid-column: span 6;
+  position: relative;
+  padding: 28px 0;
+  border-top: 1px solid var(--line);
+  transition: padding .4s var(--ease);
+}
+.proj-card:nth-child(odd) { grid-column: 1 / 7; }
+.proj-card:nth-child(even) { grid-column: 7 / 13; }
+.proj-card:nth-child(4n+1) { padding-top: 60px; }
+.proj-card:nth-child(4n) { padding-top: 60px; }
+.proj-card .visual {
+  aspect-ratio: 5 / 3;
+  background:
+    repeating-linear-gradient(45deg, transparent 0 14px, rgba(212,165,116,0.04) 14px 15px),
+    linear-gradient(135deg, #1a1814, #0e0d0b);
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  transition: transform .8s var(--ease-out);
+}
+.proj-card:hover .visual { transform: scale(1.02); }
+.proj-card .visual .center {
+  position: absolute;
+  inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(40px, 4vw, 64px);
+  color: var(--fg-dim);
+  letter-spacing: -0.02em;
+}
+.proj-card .visual .corner {
+  position: absolute;
+  top: 16px; left: 16px;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+.proj-card .visual .corner::before { content:""; width:6px; height:6px; background: var(--accent); border-radius:50%; }
+.proj-card .meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin-top: 22px;
+  gap: 20px;
+}
+.proj-card h3 {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(28px, 3vw, 44px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  transition: color .3s;
+}
+.proj-card h3 em { font-family: var(--font-display); font-style: italic; color: var(--accent); }
+.proj-card:hover h3 { color: var(--accent); }
+.proj-card .tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  text-align: right;
+  max-width: 24ch;
+  line-height: 1.5;
+}
+.proj-card .year {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--fg-dim);
+  margin-top: 8px;
+}
+.proj-card.coming { opacity: 0.55; pointer-events: none; }
+.proj-card.coming h3::after {
+  content: "soon";
+  display: inline-block;
+  margin-left: 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 2px 6px;
+  vertical-align: middle;
+  border-radius: 3px;
+}
+
+/* Light-section overrides for the project grid */
+.section-light .proj-card { padding-top: 28px; border-top-color: var(--line-light) !important; }
+.section-light .proj-card:nth-child(4n+1),
+.section-light .proj-card:nth-child(4n) { padding-top: 60px; }
+.section-light .proj-card h3 { color: var(--fg-light); }
+.section-light .proj-card .year,
+.section-light .proj-card .tag { color: var(--fg-light-dim); }
+.section-light .projects-grid-section { padding-top: 120px; padding-bottom: 160px; }
+.section-light .proj-card .visual { box-shadow: 0 30px 60px -24px rgba(0,0,0,0.20); }
+
+@media (max-width: 720px) {
+  .proj-grid { grid-template-columns: 1fr; }
+  .proj-card, .proj-card:nth-child(odd), .proj-card:nth-child(even) { grid-column: 1 / -1; padding-top: 28px !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="veil"></div>
+
+<nav class="nav">
+  <a class="mark" href="index.html"><span class="dot"></span>Aditya · Available 2026</a>
+  <div class="links">
+    <a href="index.html">home</a>
+    <a href="#projects">projects</a>
+    <a href="resume.html">resume</a>
+    <a href="/cdn-cgi/l/email-protection#dbbabfb2afa2baf5abbabfb6baa9bab1bab59bbcb6bab2b7f5b8b4b6">contact</a>
+  </div>
+</nav>
+
+<section class="wrap page-head" data-screen-label="Projects · Index">
+  <div class="lbl" data-anim="rise">— Archive ‘ 24 — ‘ 26</div>
+  <h1>
+    <span class="split-line"><span class="inner">Selected</span></span>
+    <span class="split-line"><span class="inner"><em>work</em>.</span></span>
+  </h1>
+  <p class="sub" data-anim="rise">Hackathon sprints. Research. Side ideas.</p>
+</section>
+
+<section class="section-light projects-grid-section" id="projects" data-screen-label="Projects Grid">
+  <div class="deco-num">All</div>
+  <div class="wrap">
+  <div class="proj-grid">
+
+    <a class="proj-card" data-metal="steel" data-hover href="projects/upoplis.html" data-anim="rise">
+      <div class="visual"><div class="corner">RBC Borealis</div><div class="center">U°</div></div>
+      <div class="meta-row">
+        <div>
+          <h3>Upoplis<em>°</em></h3>
+          <div class="year">2026 · Python · PyTorch</div>
+        </div>
+        <div class="tag">Youth-health<br>engagement modeling</div>
+      </div>
+    </a>
+
+    <a class="proj-card" data-metal="emerald" data-hover href="projects/pulse.html" data-anim="rise">
+      <div class="visual"><div class="corner">Web Summit · Winner</div><div class="center">Pulse</div></div>
+      <div class="meta-row">
+        <div>
+          <h3>Pulse</h3>
+          <div class="year">2026 · React · Claude API</div>
+        </div>
+        <div class="tag">Real-time networking<br>radar</div>
+      </div>
+    </a>
+
+    <a class="proj-card" data-metal="brass" data-hover href="projects/lantern.html" data-anim="rise">
+      <div class="visual"><div class="corner">INSPIRE · Runner-up</div><div class="center">Lantern</div></div>
+      <div class="meta-row">
+        <div>
+          <h3>Lantern</h3>
+          <div class="year">2026 · React · Gemini</div>
+        </div>
+        <div class="tag">AI wellness<br>companion</div>
+      </div>
+    </a>
+
+    <a class="proj-card" data-metal="violet" data-hover href="projects/precheckai.html" data-anim="rise">
+      <div class="visual"><div class="corner">nwHacks · Shortlisted</div><div class="center">P<em style="font-family:var(--font-display);font-style:italic">.ai</em></div></div>
+      <div class="meta-row">
+        <div>
+          <h3>PreCheck<em>.ai</em></h3>
+          <div class="year">2026 · TypeScript · Gemini</div>
+        </div>
+        <div class="tag">Insurance claim<br>pre-checker</div>
+      </div>
+    </a>
+
+    <div class="proj-card coming" data-anim="rise">
+      <div class="visual"><div class="corner">Side · In progress</div><div class="center">··</div></div>
+      <div class="meta-row">
+        <div>
+          <h3>Pace Lab</h3>
+          <div class="year">2026 · Personal · Training analytics</div>
+        </div>
+        <div class="tag">Marathon training<br>visualizer</div>
+      </div>
+    </div>
+
+    <div class="proj-card coming" data-anim="rise">
+      <div class="visual"><div class="corner">Research · Drafting</div><div class="center">··</div></div>
+      <div class="meta-row">
+        <div>
+          <h3>Untitled <em>n°06</em></h3>
+          <div class="year">2026 — TBD</div>
+        </div>
+        <div class="tag">Quietly cooking</div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+</section>
+
+<!-- Footer -->
+<footer class="foot wrap">
+  <div class="row">
+    <div>
+      <h3>Index</h3>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">All projects</a></li>
+        <li><a href="index.html#marathons">Marathons</a></li>
+        <li><a href="resume.html">Resume</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Elsewhere</h3>
+      <ul>
+        <li><a href="/cdn-cgi/l/email-protection#b5d4d1dcc1ccd49bc5d4d1d8d4c7d4dfd4dbf5d2d8d4dcd99bd6dad8">Email</a></li>
+        <li><a href="https://github.com/adi-padmarajan" target="_blank" rel="noopener">GitHub ↗</a></li>
+        <li><a href="https://linkedin.com/in/aditya-padmarajan" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+        <li><a href="https://www.strava.com/athlete" target="_blank" rel="noopener">Strava ↗</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Now</h3>
+      <ul>
+        <li>Final year @ UVic CS</li>
+        <li>RBC Borealis · Mentee</li>
+        <li>Marathon block · spring 2026</li>
+        <li>Open to full-time</li>
+      </ul>
+    </div>
+  </div>
+  <div class="legal">
+    <span>© 2026 Aditya Padmarajan</span>
+    <span>Designed in Victoria · Coded in &lt;coffee/&gt;</span>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>

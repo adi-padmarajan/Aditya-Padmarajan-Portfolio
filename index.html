@@ -1,0 +1,1155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aditya Padmarajan — Portfolio</title>
+<meta name="description" content="Aditya Padmarajan — Software developer, marathoner, hackathon finalist. A study in code and endurance.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600&display=swap">
+
+<link rel="stylesheet" href="css/styles.css">
+
+<style>
+/* ====== Hero ====== */
+.hero {
+  min-height: 100svh;
+  padding-top: 12vh;
+  padding-bottom: 10vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+.hero-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+.hero-meta .col { display: flex; flex-direction: column; gap: 6px; max-width: 28ch; }
+.hero-meta .col span { color: var(--fg); }
+@media (max-width: 720px) {
+  .hero-meta { flex-direction: column; gap: 24px; }
+}
+
+.hero-title {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(64px, 14vw, 240px);
+  line-height: 0.88;
+  letter-spacing: -0.045em;
+  margin-top: clamp(40px, 8vh, 80px);
+}
+.hero-title .row { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 0.18em; }
+.hero-title em {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+  font-size: 0.96em;
+}
+.hero-title .reg { font-weight: 300; }
+
+.hero-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  gap: 40px;
+  margin-top: 60px;
+}
+.hero-bottom .lead {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(22px, 2.4vw, 32px);
+  line-height: 1.25;
+  color: var(--fg);
+  max-width: 24ch;
+  letter-spacing: -0.01em;
+}
+.hero-bottom .lead em {
+  font-style: normal;
+  font-family: var(--font-sans);
+  color: var(--fg-dim);
+  font-size: 0.7em;
+  letter-spacing: -0.005em;
+}
+.hero-bottom .scroll-cue {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+.scroll-cue .line {
+  width: 60px; height: 1px; background: var(--fg-dim);
+  position: relative; overflow: hidden;
+}
+.scroll-cue .line::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: var(--accent);
+  transform: translateX(-100%);
+  animation: slideline 2.6s var(--ease) infinite;
+}
+@keyframes slideline {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(0%); }
+  100% { transform: translateX(100%); }
+}
+@media (max-width: 720px) {
+  .hero-bottom { grid-template-columns: 1fr; gap: 30px; }
+  .hero-bottom .scroll-cue { justify-self: start; }
+}
+
+/* ====== Section index ====== */
+.section-head {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 40px;
+  padding: 140px 0 60px;
+  align-items: end;
+}
+.section-head .lbl {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+.section-head .lbl::before {
+  content: "";
+  display: inline-block;
+  width: 28px; height: 1px;
+  background: var(--accent);
+  vertical-align: middle;
+  margin-right: 12px;
+}
+.section-head .title {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(36px, 5.2vw, 72px);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  max-width: 18ch;
+}
+.section-head .title em {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--accent);
+}
+@media (max-width: 720px) {
+  .section-head { grid-template-columns: 1fr; gap: 16px; padding: 100px 0 40px; }
+}
+
+/* ====== Projects (Featured) ====== */
+.projects-list {
+  border-top: 1px solid var(--line);
+  position: relative;
+}
+.project-row {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  gap: 40px;
+  align-items: center;
+  padding: clamp(36px, 4.5vw, 56px) 0;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  transition: padding .5s var(--ease);
+}
+.project-row .idx {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--fg-dim);
+  align-self: start;
+  padding-top: 8px;
+}
+.project-row .content { display: flex; flex-direction: column; gap: 14px; }
+.project-row .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  width: fit-content;
+  max-width: 100%;
+  line-height: 1.4;
+}
+.project-row .badge .star {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px; height: 20px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  font-size: 10px;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.project-row .badge .sep {
+  width: 28px; height: 1px; background: var(--accent); opacity: 0.6;
+  flex-shrink: 0;
+}
+.project-row .name {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(40px, 6.4vw, 96px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  transition: color .4s var(--ease), transform .5s var(--ease-out);
+}
+.project-row .name em {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+}
+.project-row .role {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--fg-dim);
+  max-width: 56ch;
+  margin-top: 4px;
+}
+.project-row .meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  align-self: start;
+  padding-top: 8px;
+}
+.project-row .year {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--fg-dim);
+}
+.project-row .view {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  transition: color .3s, transform .3s var(--ease);
+}
+.project-row:hover .view { color: var(--accent); transform: translateX(4px); }
+
+.project-row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(212,165,116,0.03), transparent);
+  opacity: 0;
+  transition: opacity .5s var(--ease);
+  pointer-events: none;
+}
+.project-row:hover::before { opacity: 1; }
+.project-row:hover .name { color: var(--accent); }
+.project-row:hover .idx { color: var(--accent); }
+
+/* Hover preview image */
+.project-preview {
+  position: absolute;
+  top: 0; left: 0;
+  width: 560px;
+  height: 340px;
+  background: var(--bg-soft);
+  border-radius: 10px;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 5;
+  transition: opacity .4s var(--ease);
+  overflow: hidden;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 30px 80px -20px rgba(0,0,0,0.6), 0 0 0 1px var(--line);
+}
+.project-preview .pv-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: contain;
+  object-position: center;
+  background: #0e0d0b;
+  opacity: 0;
+  transition: opacity .35s var(--ease);
+}
+.project-preview .pv-img.is-active { opacity: 1; }
+.project-preview .pv-cap {
+  position: absolute;
+  left: 14px; bottom: 12px;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 10px;
+  background: rgba(14,13,11,0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  z-index: 2;
+}
+.project-preview .pv-cap::before { content: ""; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+
+@media (max-width: 900px) {
+  .project-row {
+    grid-template-columns: 40px 1fr;
+    gap: 8px 20px;
+    padding: 32px 0;
+  }
+  .project-row .idx { padding-top: 6px; }
+  .project-row .badge { font-size: 10.5px; gap: 8px; }
+  .project-row .badge .sep { width: 18px; }
+  .project-row .meta {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 4px;
+  }
+  .project-preview { display: none; }
+}
+
+.projects-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 0;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.projects-footer .note {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+
+/* ====== Marathon ====== */
+.marathon-section { padding-bottom: 60px; position: relative; }
+
+.marathon-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  padding: 40px 0 80px;
+  border-bottom: 1px solid var(--line);
+}
+.stat .num {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: clamp(40px, 5vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.stat .num em {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--accent);
+}
+.stat .lbl {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  margin-top: 12px;
+}
+@media (max-width: 720px) {
+  .marathon-stats { grid-template-columns: 1fr 1fr; gap: 28px; }
+}
+
+/* ===== Horizontal-scroll card gallery ===== */
+.marathon-h-scroll {
+  position: relative;
+  margin-top: 60px;
+  height: 100vh;
+  min-height: 720px;
+  overflow: hidden;
+}
+.marathon-h-scroll .scroll-track {
+  position: absolute;
+  top: 0; left: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 2.4vw, 36px);
+  padding: 0 var(--gutter);
+  will-change: transform;
+}
+.marathon-h-scroll .progress-bar {
+  position: absolute;
+  bottom: 8vh;
+  left: var(--gutter);
+  right: var(--gutter);
+  height: 1px;
+  background: var(--line);
+  z-index: 4;
+}
+.marathon-h-scroll .progress-bar .fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--accent);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+.marathon-h-scroll .marker {
+  position: absolute;
+  bottom: 4vh;
+  left: var(--gutter);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  z-index: 4;
+  display: flex; align-items: center; gap: 12px;
+}
+.marathon-h-scroll .marker .arrow-cue {
+  display: inline-block;
+  animation: cuewob 2s var(--ease) infinite;
+  color: var(--accent);
+}
+@keyframes cuewob {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+}
+
+.mar-card {
+  flex: 0 0 clamp(320px, 32vw, 460px);
+  height: clamp(420px, 62vh, 580px);
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: border-color .4s var(--ease), transform .6s var(--ease-out);
+}
+.mar-card:hover { border-color: var(--accent); }
+.mar-card .top {
+  flex: 1.2;
+  position: relative;
+  overflow: hidden;
+  background:
+    repeating-linear-gradient(45deg, transparent 0 18px, rgba(212,165,116,0.05) 18px 19px),
+    linear-gradient(140deg, #1a1814 0%, #0e0d0b 60%, #16130e 100%);
+}
+.mar-card .top .glyph {
+  position: absolute;
+  inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(64px, 8vw, 112px);
+  color: var(--fg);
+  opacity: 0.18;
+  letter-spacing: -0.03em;
+  transition: opacity .6s var(--ease);
+}
+.mar-card:hover .top .glyph { opacity: 0.4; color: var(--accent); }
+.mar-card .top .num {
+  position: absolute;
+  top: 20px; left: 20px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--fg-dim);
+}
+.mar-card .top .num.pr {
+  color: var(--accent);
+}
+.mar-card .top .pr-tag {
+  position: absolute;
+  top: 20px; right: 20px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 4px 8px;
+  border-radius: 3px;
+}
+.mar-card .top .km {
+  position: absolute;
+  bottom: 16px; left: 20px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--fg-dim);
+  display: flex; align-items: center; gap: 8px;
+}
+.mar-card .top .km::before { content:""; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+
+.mar-card .body {
+  flex: 1;
+  padding: clamp(20px, 2vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-top: 1px solid var(--line);
+}
+.mar-card .race {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(22px, 1.8vw, 26px);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.mar-card .loc {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+.mar-card .time {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(48px, 4.8vw, 72px);
+  color: var(--fg);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-top: auto;
+}
+.mar-card.pr .time { color: var(--accent); }
+.mar-card .foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+.mar-card .date {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--fg-dim);
+}
+.mar-card .strava {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color .3s, transform .3s var(--ease);
+}
+.mar-card .strava:hover { color: var(--accent); transform: translateX(3px); }
+
+@media (max-width: 900px) {
+  .marathon-h-scroll {
+    height: auto;
+    min-height: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 30px;
+  }
+  .marathon-h-scroll .scroll-track {
+    position: relative;
+    padding: 30px var(--gutter);
+    transform: none !important;
+  }
+  .marathon-h-scroll .progress-bar,
+  .marathon-h-scroll .marker { display: none; }
+  .mar-card { scroll-snap-align: start; flex: 0 0 80vw; height: 520px; }
+}
+
+/* ====== Contact / CTA ====== */
+.contact-block {
+  padding: 160px 0 120px;
+  position: relative;
+}
+.contact-block .label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  margin-bottom: 40px;
+}
+.contact-block .big {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: clamp(48px, 9vw, 144px);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+.contact-block .big em {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 400;
+}
+.contact-block .email {
+  display: inline-block;
+  margin-top: 40px;
+  font-family: var(--font-sans);
+  font-size: clamp(20px, 2.6vw, 32px);
+  letter-spacing: -0.02em;
+  position: relative;
+  padding-bottom: 6px;
+  color: var(--fg);
+}
+.contact-block .email::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%; height: 1px;
+  background: var(--fg-dim);
+  transform-origin: right;
+  transition: transform .6s var(--ease-out);
+}
+.contact-block .email:hover::after { transform-origin: left; transform: scaleX(0); }
+.contact-block .ctas {
+  margin-top: 60px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* ====== Marquee (decorative) ====== */
+.marquee {
+  display: flex;
+  overflow: hidden;
+  white-space: nowrap;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 36px 0;
+  margin: 80px 0;
+  width: 100%;
+}
+.marquee-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 64px;
+  padding-right: 64px;
+  flex-shrink: 0;
+}
+.marquee-track > span {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: clamp(40px, 7vw, 96px);
+  letter-spacing: -0.03em;
+  color: var(--fg);
+}
+.marquee-track > span em {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--accent);
+}
+.marquee-track .sep {
+  display: inline-block;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+</style>
+</head>
+<body>
+
+<div class="veil"></div>
+
+<nav class="nav">
+  <a class="mark" href="index.html"><span class="dot"></span>Aditya Padmarajan</a>
+  <div class="links">
+    <a href="projects.html">work</a>
+    <a href="#marathons">marathons</a>
+    <a href="resume.html">resume</a>
+    <a href="/cdn-cgi/l/email-protection#3253565b464b531c4253565f53405358535c72555f535b5e1c515d5f">contact</a>
+  </div>
+</nav>
+
+<!-- ============================================ HERO ============================================ -->
+<section class="hero wrap" data-screen-label="01 Hero">
+
+  <div class="hero-meta">
+    <div class="col">
+      <span>Aditya Padmarajan</span>
+      <span style="color: var(--fg-dim)">Software Developer</span>
+    </div>
+    <div class="col" style="text-align:right">
+      <span>Victoria, BC</span>
+      <span style="color: var(--fg-dim)">UVic CS</span>
+    </div>
+  </div>
+
+  <h1 class="hero-title">
+    <span class="row"><span class="split-line"><span class="inner reg">I am</span></span></span>
+    <span class="row"><span class="split-line"><span class="inner">Aditya</span></span></span>
+    <span class="row"><span class="split-line"><span class="inner"><em class="rose">Padmarajan</em><span style="color:var(--fg)">.</span></span></span></span>
+  </h1>
+
+  <div class="hero-bottom">
+    <p class="lead">
+      Code. <em>Endurance.</em> Shipping work that feels right.
+    </p>
+    <div class="scroll-cue">
+      <span>scroll</span>
+      <span class="line"></span>
+      <span>01 / 04</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ MARQUEE ============================================ -->
+<div class="marquee" data-marquee data-speed="50">
+  <div class="marquee-track">
+    <span>Selected work</span><span class="sep metal brass"></span>
+    <span><em>2024 — 2026</em></span><span class="sep metal steel"></span>
+    <span>Available for full-time</span><span class="sep metal emerald"></span>
+    <span><em>Toronto · Remote</em></span><span class="sep metal violet"></span>
+  </div>
+</div>
+
+<!-- ============================================ FEATURED PROJECTS ============================================ -->
+<section class="wrap" id="work" data-screen-label="02 Featured Work">
+
+  <header class="section-head" data-anim="rise">
+    <div class="lbl">02 — Selected work</div>
+    <h2 class="title">Four ships. <em>Four</em> places.</h2>
+  </header>
+
+  <div class="projects-list" id="projects">
+
+    <a class="project-row" data-metal="steel" data-hover href="projects/upoplis.html" data-preview-name="Upoplis" data-preview-image="assets/projects/upoplis.jpg">
+      <div class="idx">/01</div>
+      <div class="content">
+        <div class="badge"><span class="star">▲</span>RBC Borealis<span class="sep"></span>Let&rsquo;s SOLVE It · AI Mentee Cohort</div>
+        <h3 class="name">Upoplis<em>°</em></h3>
+        <p class="role">Engagement modeling · 1,500+ youth-health records.</p>
+        <span class="view">View case study <span class="arrow">↗</span></span>
+      </div>
+      <div class="meta">
+        <div class="year">2026</div>
+      </div>
+    </a>
+
+    <a class="project-row" data-metal="emerald" data-hover href="projects/pulse.html" data-preview-name="Pulse" data-preview-image="assets/projects/pulse.jpg">
+      <div class="idx">/02</div>
+      <div class="content">
+        <div class="badge"><span class="star">★</span>1<sup>st</sup> Place · Winner<span class="sep"></span>Web Summit Vancouver Hackathon 2026</div>
+        <h3 class="name">Pulse</h3>
+        <p class="role">Real-time networking radar for live events.</p>
+        <span class="view">View case study <span class="arrow">↗</span></span>
+      </div>
+      <div class="meta">
+        <div class="year">2026</div>
+      </div>
+    </a>
+
+    <a class="project-row" data-metal="brass" data-hover href="projects/lantern.html" data-preview-name="Lantern" data-preview-image="assets/projects/lantern.jpg">
+      <div class="idx">/03</div>
+      <div class="content">
+        <div class="badge"><span class="star">★</span>Runner-up · 2<sup>nd</sup> Place<span class="sep"></span>INSPIRE Hackathon 2026</div>
+        <h3 class="name">Lantern</h3>
+        <p class="role">AI wellness companion. Weather- &amp; severity-aware.</p>
+        <span class="view">View case study <span class="arrow">↗</span></span>
+      </div>
+      <div class="meta">
+        <div class="year">2026</div>
+      </div>
+    </a>
+
+    <a class="project-row" data-metal="violet" data-hover href="projects/precheckai.html" data-preview-name="PreCheck.ai" data-preview-image="assets/projects/precheck.jpg">
+      <div class="idx">/04</div>
+      <div class="content">
+        <div class="badge"><span class="star">★</span>Shortlisted · Best Use of Gemini API<span class="sep"></span>nwHacks 2026</div>
+        <h3 class="name">PreCheck<em>.ai</em></h3>
+        <p class="role">LLM pre-checker for health insurance claims.</p>
+        <span class="view">View case study <span class="arrow">↗</span></span>
+      </div>
+      <div class="meta">
+        <div class="year">2026</div>
+      </div>
+    </a>
+
+    <!-- Floating preview card -->
+    <div class="project-preview" id="proj-preview">
+      <img class="pv-img" data-key="Upoplis" src="assets/projects/upoplis.jpg" alt="Upoplis preview" loading="lazy">
+      <img class="pv-img" data-key="Pulse" src="assets/projects/pulse.jpg" alt="Pulse preview" loading="lazy">
+      <img class="pv-img" data-key="Lantern" src="assets/projects/lantern.jpg" alt="Lantern preview" loading="lazy">
+      <img class="pv-img" data-key="PreCheck.ai" src="assets/projects/precheck.jpg" alt="PreCheck.ai preview" loading="lazy">
+      <span class="pv-cap" data-preview-cap>View case study</span>
+    </div>
+  </div>
+
+  <div class="projects-footer">
+    <div class="note">+ More in archive</div>
+    <a class="btn" href="projects.html" data-hover>
+      <span>All projects</span>
+      <span class="arrow">↗</span>
+    </a>
+  </div>
+</section>
+
+<!-- ============================================ MARATHONS ============================================ -->
+<section class="marathon-section section-light" id="marathons" data-screen-label="03 Marathons">
+
+  <div class="deco-num">03</div>
+
+  <div class="wrap">
+    <header class="section-head" data-anim="rise">
+      <div class="lbl">03 — 42.195 km × 6</div>
+      <h2 class="title">Six full marathons. <em>One</em> long lesson.</h2>
+    </header>
+
+    <div class="marathon-stats">
+      <div class="stat" data-anim="rise" data-metal="brass">
+        <div class="num"><em data-count="6">6</em></div>
+        <div class="lbl">Full marathons</div>
+      </div>
+      <div class="stat" data-anim="rise" data-metal="steel">
+        <div class="num"><em><span data-count="253.2" data-decimals="1">253.2</span></em><span style="color:var(--fg-light-dim); font-size:0.5em">km</span></div>
+        <div class="lbl">Total race distance</div>
+      </div>
+      <div class="stat" data-anim="rise" data-metal="emerald">
+        <div class="num">−<em>1:20</em></div>
+        <div class="lbl">Time off PR (h:mm)</div>
+      </div>
+      <div class="stat" data-anim="rise" data-metal="rose">
+        <div class="num"><em><span data-count="28">28</span></em><span style="color:var(--fg-light-dim); font-size:0.5em">%</span></div>
+        <div class="lbl">Improvement, 2022→2025</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Horizontal scroll gallery -->
+  <div class="marathon-h-scroll" id="mar-scroll">
+    <div class="scroll-track">
+
+      <article class="mar-card" style="opacity:0.6">
+        <div class="top">
+          <div class="num">/07</div>
+          <div class="glyph">next</div>
+          <div class="km">42.195 KM · in training</div>
+        </div>
+        <div class="body">
+          <div>
+            <div class="race">Next chapter</div>
+            <div class="loc">Spring block · 2026</div>
+          </div>
+          <div class="time">sub-3:15?</div>
+          <div class="foot">
+            <span class="date">TBD</span>
+            <span class="strava" style="color:var(--fg-dim)">soon ↗</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="mar-card pr">
+        <div class="top">
+          <div class="num pr">/06</div>
+          <div class="pr-tag">PR</div>
+          <div class="glyph">PR</div>
+          <div class="km">42.195 KM · −1:20 vs Y1</div>
+        </div>
+        <div class="body">
+          <div>
+            <div class="race">Royal Victoria Marathon</div>
+            <div class="loc">Victoria, BC · Canada</div>
+          </div>
+          <div class="time">3:26:00</div>
+          <div class="foot">
+            <span class="date">Oct 2025</span>
+            <a class="strava" data-hover href="https://www.strava.com/athlete" target="_blank" rel="noopener">Strava <span class="arrow">↗</span></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="mar-card">
+        <div class="top">
+          <div class="num">/05</div>
+          <div class="glyph">V</div>
+          <div class="km">42.195 KM · sub-3:35</div>
+        </div>
+        <div class="body">
+          <div>
+            <div class="race">Royal Victoria Marathon</div>
+            <div class="loc">Victoria, BC · Canada</div>
+          </div>
+          <div class="time">3:34:27</div>
+          <div class="foot">
+            <span class="date">Oct 2024</span>
+            <a class="strava" data-hover href="https://www.strava.com/athlete" target="_blank" rel="noopener">Strava <span class="arrow">↗</span></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="mar-card">
+        <div class="top">
+          <div class="num">/04</div>
+          <div class="glyph">IV</div>
+          <div class="km">42.195 KM</div>
+        </div>
+        <div class="body">
+          <div>
+            <div class="race">BMO Vancouver Marathon</div>
+            <div class="loc">Vancouver, BC · Canada</div>
+          </div>
+          <div class="time">3:43:50</div>
+          <div class="foot">
+            <span class="date">May 2024</span>
+            <a class="strava" data-hover href="https://www.strava.com/athlete" target="_blank" rel="noopener">Strava <span class="arrow">↗</span></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="mar-card">
+        <div class="top">
+          <div class="num">/03</div>
+          <div class="glyph">III</div>
+          <div class="km">42.195 KM</div>
+        </div>
+        <div class="body">
+          <div>
+            <div class="race">Royal Victoria Marathon</div>
+            <div class="loc">Victoria, BC · Canada</div>
+          </div>
+          <div class="time">3:58:11</div>
+          <div class="foot">
+            <span class="date">Oct 2023</span>
+            <a class="strava" data-hover href="https://www.strava.com/athlete" target="_blank" rel="noopener">Strava <span class="arrow">↗</span></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="mar-card">
+        <div class="top">
+          <div class="num">/02</div>
+          <div class="glyph">II</div>
+          <div class="km">42.195 KM</div>
+        </div>
+        <div class="body">
+          <div>
+            <div class="race">BMO Vancouver Marathon</div>
+            <div class="loc">Vancouver, BC · Canada</div>
+          </div>
+          <div class="time">4:18:42</div>
+          <div class="foot">
+            <span class="date">May 2023</span>
+            <a class="strava" data-hover href="https://www.strava.com/athlete" target="_blank" rel="noopener">Strava <span class="arrow">↗</span></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="mar-card">
+        <div class="top">
+          <div class="num">/01</div>
+          <div class="glyph">first</div>
+          <div class="km">42.195 KM · Debut</div>
+        </div>
+        <div class="body">
+          <div>
+            <div class="race">Royal Victoria Marathon</div>
+            <div class="loc">Victoria, BC · Canada</div>
+          </div>
+          <div class="time">4:46:06</div>
+          <div class="foot">
+            <span class="date">Oct 2022</span>
+            <a class="strava" data-hover href="https://www.strava.com/athlete" target="_blank" rel="noopener">Strava <span class="arrow">↗</span></a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="marker"><span class="arrow-cue">→</span>Scroll to advance · Drag to navigate</div>
+    <div class="progress-bar"><div class="fill" id="mar-progress"></div></div>
+  </div>
+
+  <div class="wrap">
+    <p class="note" style="margin-top:60px; font-family:var(--font-mono); font-size:11px; letter-spacing:0.12em; text-transform:uppercase; max-width:60ch;">
+      One rep at a time. <span style="color:var(--metal-brass-mid)">Same way you ship a 42&nbsp;km.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ============================================ CONTACT ============================================ -->
+<section class="wrap contact-block" id="contact" data-screen-label="04 Contact">
+  <div class="label">04 — Get in touch</div>
+  <h2 class="big" data-anim="rise">
+    Have a long&nbsp;run<br>or a hard problem?<br><em>Send&nbsp;it.</em>
+  </h2>
+  <a class="email" data-hover href="/cdn-cgi/l/email-protection#0c6d686578756d227c6d68616d7e6d666d624c6b616d6560226f6361"><span class="__cf_email__" data-cfemail="7a1b1e130e031b540a1b1e171b081b101b143a1d171b131654191517">[email&#160;protected]</span></a>
+
+  <div class="ctas">
+    <a class="btn" href="resume.html" data-hover><span>Resume</span><span class="arrow">↗</span></a>
+    <a class="btn" href="https://github.com/adi-padmarajan" target="_blank" rel="noopener" data-hover><span>GitHub</span><span class="arrow">↗</span></a>
+    <a class="btn" href="https://linkedin.com/in/aditya-padmarajan" target="_blank" rel="noopener" data-hover><span>LinkedIn</span><span class="arrow">↗</span></a>
+  </div>
+</section>
+
+<!-- ============================================ FOOTER ============================================ -->
+<footer class="foot wrap">
+  <div class="row">
+    <div>
+      <h3>Index</h3>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Work</a></li>
+        <li><a href="#marathons">Marathons</a></li>
+        <li><a href="resume.html">Resume</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Elsewhere</h3>
+      <ul>
+        <li><a href="/cdn-cgi/l/email-protection#4a2b2e233e332b643a2b2e272b382b202b240a2d272b232664292527">Email</a></li>
+        <li><a href="https://github.com/adi-padmarajan" target="_blank" rel="noopener">GitHub ↗</a></li>
+        <li><a href="https://linkedin.com/in/aditya-padmarajan" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+        <li><a href="https://www.strava.com/athlete" target="_blank" rel="noopener">Strava ↗</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Now</h3>
+      <ul>
+        <li>UVic CS · final year</li>
+        <li>RBC Borealis · mentee</li>
+        <li>Open to full-time</li>
+      </ul>
+    </div>
+  </div>
+  <div class="legal">
+    <span>© 2026 Aditya Padmarajan</span>
+    <span>Victoria · Toronto</span>
+  </div>
+</footer>
+
+<!-- ===== Scripts ===== -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="js/main.js"></script>
+
+<script>
+  /* === Project hover preview with cursor follow === */
+  (function () {
+    const isTouch = window.matchMedia("(hover: none)").matches || window.innerWidth < 900;
+    if (isTouch) return;
+
+    const list = document.querySelector(".projects-list");
+    const preview = document.getElementById("proj-preview");
+    const cap = preview && preview.querySelector("[data-preview-cap]");
+    const imgs = preview ? preview.querySelectorAll(".pv-img") : [];
+    if (!list || !preview) return;
+
+    let mx = 0, my = 0, cx = 0, cy = 0;
+    let active = false;
+
+    list.addEventListener("mousemove", (e) => {
+      const r = list.getBoundingClientRect();
+      mx = e.clientX - r.left;
+      my = e.clientY - r.top;
+    });
+
+    document.querySelectorAll(".project-row").forEach((row) => {
+      row.addEventListener("mouseenter", () => {
+        active = true;
+        preview.style.opacity = "1";
+        const key = row.dataset.previewName || "";
+        imgs.forEach((im) => im.classList.toggle("is-active", im.dataset.key === key));
+        if (cap) cap.textContent = key ? key + " — case study" : "View case study";
+      });
+      row.addEventListener("mouseleave", () => {
+        active = false;
+        preview.style.opacity = "0";
+      });
+    });
+
+    function step() {
+      cx += (mx - cx) * 0.13;
+      cy += (my - cy) * 0.13;
+      preview.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%) ${active ? "scale(1)" : "scale(0.92)"}`;
+      requestAnimationFrame(step);
+    }
+    step();
+  })();
+
+  /* === Marathon horizontal scroll === */
+  (function () {
+    const section = document.getElementById("mar-scroll");
+    if (!section || !window.gsap || !window.ScrollTrigger) return;
+
+    const isMobile = window.matchMedia("(max-width: 900px)").matches;
+    if (isMobile) return; /* mobile uses native horizontal touch scroll */
+
+    const track = section.querySelector(".scroll-track");
+    const progress = document.getElementById("mar-progress");
+    const cards = section.querySelectorAll(".mar-card");
+
+    /* Stagger entry as cards approach view */
+    gsap.set(cards, { y: 60, opacity: 0 });
+
+    const getDistance = () => {
+      const gutterEl = document.querySelector(".wrap");
+      const gutter = gutterEl ? parseFloat(getComputedStyle(gutterEl).paddingLeft) || 24 : 24;
+      return Math.max(0, track.scrollWidth - window.innerWidth + gutter * 2);
+    };
+
+    const tween = gsap.to(track, {
+      x: () => -getDistance(),
+      ease: "none",
+      scrollTrigger: {
+        trigger: section,
+        pin: true,
+        scrub: 1,
+        anticipatePin: 1,
+        start: "top top",
+        end: () => `+=${getDistance()}`,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          if (progress) progress.style.transform = `scaleX(${self.progress})`;
+        },
+      },
+    });
+
+    /* Card entrance: each card animates in as it reveals */
+    cards.forEach((card, i) => {
+      gsap.to(card, {
+        opacity: 1,
+        y: 0,
+        ease: "expo.out",
+        duration: 1,
+        scrollTrigger: {
+          trigger: card,
+          containerAnimation: tween,
+          start: "left 90%",
+          toggleActions: "play none none reverse",
+        },
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>

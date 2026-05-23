@@ -1,0 +1,262 @@
+/* ============================================================
+   Project detail page — shared styles
+   ============================================================ */
+
+.proj-head {
+  padding: 22vh 0 6vh;
+}
+.proj-head .back {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 60px;
+  transition: color .3s, transform .3s var(--ease);
+}
+.proj-head .back:hover { color: var(--accent); transform: translateX(-3px); }
+.proj-head .award {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 24px;
+}
+.proj-head h1 {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(64px, 13vw, 220px);
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+}
+.proj-head h1 em {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--accent);
+}
+.proj-head .tag {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(22px, 2.4vw, 32px);
+  color: var(--fg-dim);
+  max-width: 30ch;
+  margin-top: 40px;
+}
+
+/* Hero visual placeholder */
+.proj-visual {
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  margin-top: 60px;
+  position: relative;
+  overflow: hidden;
+  background:
+    repeating-linear-gradient(45deg, transparent 0 14px, rgba(212,165,116,0.04) 14px 15px),
+    linear-gradient(135deg, #1a1814, #0e0d0b);
+}
+.proj-visual .ctx {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 14px;
+}
+.proj-visual .ctx .glyph {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(80px, 12vw, 220px);
+  color: var(--fg);
+  opacity: 0.9;
+  letter-spacing: -0.03em;
+}
+.proj-visual .ctx .lbl {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+
+/* Spec grid */
+.proj-specs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  padding: 80px 0;
+  border-bottom: 1px solid var(--line);
+}
+.proj-specs .item .lbl {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  margin-bottom: 14px;
+}
+.proj-specs .item .val {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--fg);
+}
+@media (max-width: 720px) {
+  .proj-specs { grid-template-columns: 1fr 1fr; gap: 28px; padding: 50px 0; }
+}
+
+/* Body */
+.proj-body {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 80px;
+  padding: 100px 0;
+}
+.proj-body h2 {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(32px, 3.6vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+.proj-body h2 em { font-family: var(--font-display); font-style: italic; color: var(--accent); }
+.proj-body p {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--fg);
+  margin-bottom: 24px;
+}
+.proj-body p:first-of-type::first-line { color: var(--fg); }
+.proj-body p strong {
+  font-weight: 500;
+  color: var(--accent);
+}
+@media (max-width: 720px) {
+  .proj-body { grid-template-columns: 1fr; gap: 30px; padding: 60px 0; }
+}
+
+/* Highlights list */
+.highlights {
+  padding: 60px 0 100px;
+  border-top: 1px solid var(--line);
+}
+.highlights h2 {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(36px, 4.5vw, 64px);
+  letter-spacing: -0.03em;
+  margin-bottom: 60px;
+  max-width: 18ch;
+}
+.highlights h2 em { font-family: var(--font-display); font-style: italic; color: var(--accent); }
+.hl-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr;
+  gap: 40px;
+  padding: 32px 0;
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+  transition: padding .4s var(--ease);
+}
+.hl-row:hover { padding-left: 12px; }
+.hl-row .n {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+.hl-row .h {
+  font-family: var(--font-sans);
+  font-size: clamp(20px, 2vw, 26px);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.hl-row .d {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--fg-dim);
+}
+@media (max-width: 720px) {
+  .hl-row { grid-template-columns: 40px 1fr; gap: 16px; }
+  .hl-row .d { grid-column: 1 / -1; padding-top: 4px; }
+}
+
+/* Stack pills */
+.stack {
+  padding: 60px 0 120px;
+  border-top: 1px solid var(--line);
+}
+.stack h2 {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  margin-bottom: 30px;
+}
+.stack .pills { display: flex; flex-wrap: wrap; gap: 10px; }
+.stack .pill {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  padding: 10px 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--fg);
+}
+
+/* Next project */
+.next-block {
+  border-top: 1px solid var(--line);
+  padding: 80px 0 40px;
+}
+.next-block .label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  margin-bottom: 20px;
+}
+.next-block a {
+  display: block;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(48px, 9vw, 140px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--fg);
+  transition: color .4s, transform .4s var(--ease);
+}
+.next-block a em { font-family: var(--font-display); font-style: italic; color: var(--accent); }
+.next-block a:hover { color: var(--accent); transform: translateX(12px); }
+
+/* ============================================================
+   LIGHT SECTION OVERRIDES — project detail pages
+   ============================================================ */
+.section-light .proj-specs { border-color: var(--line-light); }
+.section-light .proj-specs .item .lbl { color: var(--fg-light-dim); }
+.section-light .proj-specs .item .val { color: var(--fg-light); }
+.section-light .proj-body h2 { color: var(--fg-light); }
+.section-light .proj-body p { color: var(--fg-light); }
+.section-light .proj-body p strong { color: var(--accent-deep); }
+.section-light .highlights { border-color: var(--line-light); }
+.section-light .highlights h2 { color: var(--fg-light); }
+.section-light .hl-row { border-color: var(--line-light); }
+.section-light .hl-row .n { color: var(--accent-deep); }
+.section-light .hl-row .h { color: var(--fg-light); }
+.section-light .hl-row .d { color: var(--fg-light-dim); }
+.section-light .stack { border-color: var(--line-light); }
+.section-light .stack h2 { color: var(--fg-light-dim); }
+.section-light .stack .pill {
+  border-color: var(--line-light);
+  color: var(--fg-light);
+}
+.section-light .stack .pill:hover {
+  border-color: var(--accent-deep);
+  color: var(--accent-deep);
+}
+.section-light .proj-body-section {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
