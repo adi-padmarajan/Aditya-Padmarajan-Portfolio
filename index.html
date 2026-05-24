@@ -36,8 +36,8 @@
 
   <div class="hero-stage">
 
-    <!-- LEFT COLUMN: 3 cards -->
-    <div class="hero-col hc-left">
+    <!-- TOP ROW: 2 cards above portrait -->
+    <div class="hero-col hc-top">
 
       <div class="hero-card hc-1" data-c="rose">
         <span class="card-dot"></span>
@@ -48,9 +48,26 @@
         </div>
         <div class="card-body">
           <div class="card-title">Software Engineer</div>
-          <!--<div class="card-desc">Building scalable, impactful software experiences.</div>-->
         </div>
       </div>
+
+      <div class="hero-card hc-4" data-c="amber">
+        <span class="card-dot"></span>
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2"/>
+            <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-title">AI/ML Enthusiast</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- LEFT COLUMN: 2 cards -->
+    <div class="hero-col hc-left">
 
       <div class="hero-card hc-2 pill" data-c="emerald">
         <span class="card-dot"></span>
@@ -73,35 +90,20 @@
         </div>
         <div class="card-body">
           <div class="card-title">Full-Stack Developer</div>
-          <!--<div class="card-desc">From robust backends to polished frontends.</div>-->
         </div>
       </div>
 
     </div>
 
-    <!-- CENTER: portrait (already includes laptop) + CTA -->
+    <!-- CENTER: portrait -->
     <div class="hero-center">
       <div class="hero-portrait">
         <img src="assets/Potrait.png" alt="Aditya Padmarajan" loading="eager" decoding="async">
       </div>
     </div>
 
-    <!-- RIGHT COLUMN: 4 cards -->
+    <!-- RIGHT COLUMN: 2 cards -->
     <div class="hero-col hc-right">
-
-      <div class="hero-card hc-4" data-c="amber">
-        <span class="card-dot"></span>
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2"/>
-            <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2"/>
-          </svg>
-        </div>
-        <div class="card-body">
-          <div class="card-title">AI/ML Enthusiast</div>
-          <!--<div class="card-desc">Exploring intelligent systems and real-world applications.</div>-->
-        </div>
-      </div>
 
       <div class="hero-card hc-5 pill" data-c="rose">
         <span class="card-dot"></span>
@@ -115,19 +117,6 @@
         </div>
         <div class="card-body">
           <div class="card-title">6&times; Marathoner</div>
-        </div>
-      </div>
-
-      <div class="hero-card hc-6 pill" data-c="emerald">
-        <span class="card-dot"></span>
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
-            <circle cx="12" cy="10" r="3"/>
-          </svg>
-        </div>
-        <div class="card-body">
-          <div class="card-title">Victoria, BC</div>
         </div>
       </div>
 
@@ -145,7 +134,24 @@
         </div>
         <div class="card-body">
           <div class="card-title">Hackathon Winner</div>
-          <!--<div class="card-desc">Love turning ideas into impactful prototypes.</div> -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BOTTOM: 1 card below portrait -->
+    <div class="hero-col hc-bottom">
+
+      <div class="hero-card hc-6 pill" data-c="emerald">
+        <span class="card-dot"></span>
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Victoria, BC</div>
         </div>
       </div>
 

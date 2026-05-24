@@ -25,6 +25,186 @@
   }
 })();
 
+/* === Hero connector lines: card-dots → laptop edges === */
+(function () {
+  'use strict';
+  if (!window.gsap) return;
+
+  const DESKTOP = window.matchMedia("(min-width: 1100px)");
+  const stage   = document.querySelector(".hero-stage");
+  const portrait = document.querySelector(".hero-portrait");
+  const cards   = Array.from(document.querySelectorAll(".hero-stage .hero-card"));
+  if (!stage || !portrait || !cards.length) return;
+
+  /* ── SVG overlay ──────────────────────────────────────────── */
+  const NS  = "http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(NS, "svg");
+  svg.classList.add("hero-connector-svg");
+  stage.appendChild(svg);
+
+  /* ── Card accent colors ───────────────────────────────────── */
+  const COLORS = {
+    rose:    "#ff7e90",
+    emerald: "#6dc395",
+    violet:  "#9c84e0",
+    amber:   "#e8a55c",
+  };
+
+  /*
+   * Laptop anchor positions as fractions of the portrait image rect.
+   * Measured from the actual Potrait.png (1270×939):
+   *   Bezel left edge  ≈ 9%   Bezel right edge ≈ 90%
+   *   Bezel top edge   ≈ 5%   Laptop body bottom ≈ 76%
+   */
+  /* Which axis to lock so lines are perfectly parallel to the laptop frame edges */
+  const AXIS = {
+    "hc-1": "x", "hc-4": "x",   // top cards   → vertical lines   (lock x to card dot)
+    "hc-2": "y", "hc-3": "y",   // left cards  → horizontal lines (lock y to card dot)
+    "hc-5": "y", "hc-7": "y",   // right cards → horizontal lines (lock y to card dot)
+    "hc-6": "x",                 // bottom card → vertical line    (lock x to card dot)
+  };
+
+  const ANCHORS = {
+    "hc-1": { px: 0.23, py: 0.16 },   // top-left area of bezel  (top-left card)
+    "hc-4": { px: 0.78, py: 0.16 },   // top-right area of bezel (top-right card)
+    "hc-2": { px: 0.2, py: 0.41},   // left edge upper         (left-top card)
+    "hc-3": { px: 0.2, py: 0.61},   // left edge lower         (left-bottom card)
+    "hc-5": { px: 0.81, py: 0.41 },   // right edge upper        (right-top card)
+    "hc-7": { px: 0.81, py: 0.56 },   // right edge lower        (right-bottom card)
+    "hc-6": { px: 0.50, py: 0.76 },   // bottom center           (bottom card)
+  };
+
+  /* ── Build SVG elements per card ─────────────────────────── */
+  const lineItems = cards.map((card) => {
+    const color  = COLORS[card.dataset.c] || "#d4a574";
+    const hcClass = Array.from(card.classList).find((c) => /^hc-\d+$/.test(c));
+
+    /* Dashed connector path */
+    const path = document.createElementNS(NS, "path");
+    path.setAttribute("fill",           "none");
+    path.setAttribute("stroke",         color);
+    path.setAttribute("stroke-width",   "2.5");
+    path.setAttribute("stroke-linecap", "round");
+    path.setAttribute("opacity",        "0.72");
+    svg.appendChild(path);
+
+    /* Anchor dot — sits on the laptop edge */
+    const anchorDot = document.createElementNS(NS, "circle");
+    anchorDot.setAttribute("r",       "4");
+    anchorDot.setAttribute("fill",    color);
+    anchorDot.setAttribute("opacity", "0.9");
+    svg.appendChild(anchorDot);
+
+    /* Halo ring that pulses around the anchor dot */
+    const halo = document.createElementNS(NS, "circle");
+    halo.setAttribute("r",             "4");
+    halo.setAttribute("fill",          "none");
+    halo.setAttribute("stroke",        color);
+    halo.setAttribute("stroke-width",  "1.5");
+    halo.setAttribute("opacity",       "0");
+    svg.appendChild(halo);
+
+    const cardDot = card.querySelector(".card-dot");
+    return { card, cardDot, path, anchorDot, halo, color, hcClass };
+  });
+
+  /* ── Position helper ──────────────────────────────────────── */
+  function centerOf(el, refEl) {
+    const er = el.getBoundingClientRect();
+    const rr = refEl.getBoundingClientRect();
+    return { x: er.left + er.width * 0.5 - rr.left, y: er.top + er.height * 0.5 - rr.top };
+  }
+
+  let flowTweens = [];
+
+  function rebuildLines() {
+    flowTweens.forEach((t) => t.kill());
+    flowTweens = [];
+
+    if (!DESKTOP.matches) {
+      svg.style.opacity = "0";
+      return;
+    }
+    svg.style.opacity = "1";
+
+    const sr = stage.getBoundingClientRect();
+    const pr = portrait.getBoundingClientRect();
+    if (pr.width === 0) return;  // image not yet laid out
+
+    lineItems.forEach(({ card, cardDot, path, anchorDot, halo, hcClass }, i) => {
+      if (!cardDot || !hcClass) { path.setAttribute("d", ""); return; }
+
+      const anchor = ANCHORS[hcClass];
+      if (!anchor) { path.setAttribute("d", ""); return; }
+
+      const start = centerOf(cardDot, stage);
+      const tgt = {
+        x: pr.left + pr.width  * anchor.px - sr.left,
+        y: pr.top  + pr.height * anchor.py - sr.top,
+      };
+
+      /* Lock axis so line is perfectly parallel to the nearest laptop frame edge */
+      if (AXIS[hcClass] === "x") tgt.x = start.x;  // vertical
+      if (AXIS[hcClass] === "y") tgt.y = start.y;  // horizontal
+
+      /* Perfectly straight line */
+      const d = `M${start.x.toFixed(1)},${start.y.toFixed(1)} L${tgt.x.toFixed(1)},${tgt.y.toFixed(1)}`;
+      path.setAttribute("d", d);
+
+      /* Dash pattern — dense and crisp */
+      const len  = path.getTotalLength();
+      const dash = 5;
+      const gap  = Math.max(7, len * 0.036);
+      path.setAttribute("stroke-dasharray",  `${dash} ${gap}`);
+      path.setAttribute("stroke-dashoffset", "0");
+
+      /* Position anchor dot + halo */
+      anchorDot.setAttribute("cx", tgt.x.toFixed(1));
+      anchorDot.setAttribute("cy", tgt.y.toFixed(1));
+      halo.setAttribute("cx", tgt.x.toFixed(1));
+      halo.setAttribute("cy", tgt.y.toFixed(1));
+
+      /* Flowing dashes: card → laptop */
+      const flow = gsap.to(path, {
+        strokeDashoffset: -(dash + gap),
+        duration:  1.3 + (i % 5) * 0.15,
+        ease:      "none",
+        repeat:    -1,
+        delay:     0,
+      });
+      flowTweens.push(flow);
+
+      /* Halo pulse at anchor point */
+      const pulse = gsap.timeline({ repeat: -1, delay: i * 0.28 });
+      pulse
+        .fromTo(halo,
+          { attr: { r: 4 }, opacity: 0.7 },
+          { attr: { r: 14 }, opacity: 0, duration: 1.6, ease: "power2.out" }
+        )
+        .to(halo, { duration: 0.6 });  // brief pause before next pulse
+      flowTweens.push(pulse);
+    });
+  }
+
+  /* ── Initialize immediately — no delay ───────────────────── */
+  rebuildLines();
+
+  /* Re-run once the portrait image has loaded (in case height was 0) */
+  const img = portrait.querySelector("img");
+  if (img && !img.complete) {
+    img.addEventListener("load", rebuildLines, { once: true });
+  }
+
+  /* ── Resize ───────────────────────────────────────────────── */
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(rebuildLines, 150);
+  });
+
+  DESKTOP.addEventListener("change", rebuildLines);
+})();
+
 /* === Project hover preview with cursor follow === */
 (function () {
   const isTouch = window.matchMedia("(hover: none)").matches || window.innerWidth < 900;
