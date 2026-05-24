@@ -125,7 +125,7 @@
       svg.style.opacity = "0";
       return;
     }
-    svg.style.opacity = "1";
+    if (linesReady) svg.style.opacity = "1";
 
     const sr = stage.getBoundingClientRect();
     const pr = portrait.getBoundingClientRect();
@@ -186,14 +186,30 @@
     });
   }
 
-  /* ── Initialize immediately — no delay ───────────────────── */
-  rebuildLines();
+  /* ── Initialize ────────────────────────────────────────────── */
+  /*
+   * Lines are hidden until two conditions are both met:
+   *   1. document.fonts.ready  — real fonts loaded, card sizes are stable
+   *   2. 2100 ms have elapsed  — entrance animations have completed
+   *      (delay 0.55s + duration 0.9s + max stagger 0.42s = ~1.87s, +230ms margin)
+   *
+   * Waiting for both prevents the 22px GSAP-transform offset (cards start at
+   * y:22 during their entrance, skewing every dot measurement) and the
+   * font-swap layout shift. Lines then fade in smoothly once everything settles.
+   */
+  let linesReady = false;
+  svg.style.opacity = "0";
 
-  /* Re-run once the portrait image has loaded (in case height was 0) */
-  const img = portrait.querySelector("img");
-  if (img && !img.complete) {
-    img.addEventListener("load", rebuildLines, { once: true });
-  }
+  const fontsPromise  = document.fonts ? document.fonts.ready : Promise.resolve();
+  const delayPromise  = new Promise(resolve => setTimeout(resolve, 2100));
+
+  Promise.all([fontsPromise, delayPromise]).then(() => {
+    linesReady = true;
+    rebuildLines();
+    if (DESKTOP.matches) {
+      gsap.fromTo(svg, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" });
+    }
+  });
 
   /* ── Resize ───────────────────────────────────────────────── */
   let resizeTimer;

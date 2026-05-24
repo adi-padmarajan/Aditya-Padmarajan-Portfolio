@@ -69,6 +69,7 @@
 
 .hero-portrait {
   width: 100%;
+  aspect-ratio: 1270 / 939;
   position: relative;
   opacity: 0;
   will-change: transform, opacity;
