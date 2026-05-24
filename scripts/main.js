@@ -503,6 +503,19 @@
         onComplete: () => { window.location.href = a.href; },
       });
     });
+
+    /* Reset state when restored from bfcache (back/forward nav on mobile),
+       otherwise the exit veil stays at scaleY:1 and shows a stuck black screen. */
+    window.addEventListener("pageshow", (e) => {
+      if (!e.persisted) return;
+      gsap.set(exitVeil, { scaleY: 0 });
+      const nav = document.querySelector(".nav");
+      if (nav && nav.classList.contains("is-open")) {
+        nav.classList.remove("is-open");
+        document.body.classList.remove("menu-open");
+      }
+      if (window.lenis && window.lenis.start) window.lenis.start();
+    });
   }
 
 })();

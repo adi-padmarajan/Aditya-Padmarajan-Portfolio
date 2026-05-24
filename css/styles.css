@@ -450,7 +450,7 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 
 [data-anim="rise"] { opacity: 0; transform: translateY(40px); }
 [data-anim="fade"] { opacity: 0; }
-.split-line { overflow: hidden; display: block; }
+.split-line { overflow: hidden; display: block; padding-bottom: 0.18em; margin-bottom: -0.18em; }
 .split-line > .inner { display: block; will-change: transform; }
 
 /* ========== Buttons ========== */
