@@ -1,3 +1,30 @@
+/* === Hero entrance: portrait + floating cards stagger in === */
+(function () {
+  if (!window.gsap) return;
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const portrait = document.querySelector(".hero-portrait");
+  const cards = gsap.utils.toArray(".hero-card");
+
+  if (reduced) {
+    if (portrait) gsap.set(portrait, { opacity: 1 });
+    if (cards.length) gsap.set(cards, { opacity: 1 });
+    return;
+  }
+
+  if (portrait) {
+    gsap.fromTo(portrait,
+      { opacity: 0, y: 28, scale: 0.96 },
+      { opacity: 1, y: 0, scale: 1, duration: 1.1, ease: "expo.out", delay: 0.25, clearProps: "transform" }
+    );
+  }
+  if (cards.length) {
+    gsap.fromTo(cards,
+      { opacity: 0, y: 22, scale: 0.96 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "expo.out", stagger: 0.07, delay: 0.55, clearProps: "transform" }
+    );
+  }
+})();
+
 /* === Project hover preview with cursor follow === */
 (function () {
   const isTouch = window.matchMedia("(hover: none)").matches || window.innerWidth < 900;

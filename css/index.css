@@ -1,8 +1,7 @@
-/* ====== Hero (portrait + scrolling title) ====== */
+/* ====== Hero (3-column: left cards | portrait + CTA | right cards) ====== */
 .hero {
-  height: 100svh;
-  min-height: 560px;
-  padding-top: clamp(48px, 5vh, 72px);
+  min-height: 100svh;
+  padding-top: clamp(56px, 5vh, 80px);
   padding-bottom: 0;
   display: flex;
   flex-direction: column;
@@ -11,90 +10,248 @@
   overflow: hidden;
 }
 
-.hero-portrait {
+.hero-stage {
   flex: 1 1 auto;
-  min-height: 0;
   display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: clamp(16px, 2.5vw, 40px);
+  padding: clamp(20px, 3vh, 36px) var(--gutter);
+  min-height: 0;
+}
+
+/* ===== Side columns ===== */
+.hero-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: clamp(18px, 3vh, 36px);
+  flex: 1 1 0;
+  max-width: 290px;
+  min-width: 0;
+  padding: clamp(8px, 2vh, 24px) 0;
+}
+.hc-left  { align-items: flex-start; }
+.hc-right { align-items: flex-end;   }
+
+/* ===== Center: portrait + CTA ===== */
+.hero-center {
+  flex: 0 1 auto;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 clamp(4px, 1vw, 16px);
-  position: relative;
+  gap: clamp(8px, 1.6vh, 18px);
+  width: clamp(380px, 46vw, 660px);
+  min-width: 0;
 }
 
-.hero-portrait-img {
+.hero-portrait {
+  width: 100%;
+  position: relative;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+.hero-portrait img {
   display: block;
   width: 100%;
-  height: 100%;
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  transform: scale(1.3);
-  transform-origin: center center;
+  height: auto;
   user-select: none;
   -webkit-user-drag: none;
+  filter: drop-shadow(0 30px 40px rgba(0,0,0,0.45));
 }
 
-/* ====== Floating hero tags around the portrait ====== */
-.hero-tag {
-  position: absolute;
+/* ===== Cards ===== */
+.hero-card {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 18px 10px 14px;
-  border: 1px solid var(--line);
-  border-radius: 100px;
-  background: rgba(20, 18, 15, 0.55);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  gap: 12px;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, rgba(36,32,28,0.82), rgba(18,16,14,0.62));
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 18px;
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
   color: var(--fg);
-  white-space: nowrap;
-  z-index: 2;
-  box-shadow: 0 10px 30px -16px rgba(0, 0, 0, 0.6);
-  transition: transform .5s var(--ease), border-color .4s var(--ease);
+  box-shadow: 0 14px 36px -18px rgba(0,0,0,0.55);
+  transition: transform .55s var(--ease-out), border-color .45s var(--ease), box-shadow .5s var(--ease);
+  opacity: 0;
+  will-change: transform, opacity;
+  text-decoration: none;
+  max-width: 100%;
+  width: 100%;
 }
-.hero-tag:hover {
-  transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.18);
+.hero-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255,255,255,0.16);
+  box-shadow: 0 22px 50px -18px rgba(0,0,0,0.75);
 }
-.hero-tag em {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 400;
-  text-transform: none;
-  letter-spacing: -0.005em;
-  font-size: 15px;
-  line-height: 1;
-}
-.hero-tag-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
+
+.hero-card .card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
   flex-shrink: 0;
-  background: var(--accent);
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
 }
-.hero-tag[data-metal="brass"]   .hero-tag-dot { background: var(--metal-brass);   box-shadow: 0 0 14px rgba(212, 165, 116, 0.55); }
-.hero-tag[data-metal="violet"]  .hero-tag-dot { background: var(--metal-violet);  box-shadow: 0 0 14px rgba(138, 111, 200, 0.55); }
-.hero-tag[data-metal="emerald"] .hero-tag-dot { background: var(--metal-emerald); box-shadow: 0 0 14px rgba(79, 160, 122, 0.55); }
-.hero-tag[data-metal="steel"]   .hero-tag-dot { background: var(--metal-steel);   box-shadow: 0 0 14px rgba(95, 140, 184, 0.55); }
+.hero-card:hover .card-icon { transform: scale(1.06); }
+.hero-card .card-icon svg { width: 18px; height: 18px; }
 
-/* Positions: two on each side, vertically offset */
-.hero-tag-tl { top: 22%; left: clamp(16px, 6vw, 90px); }
-.hero-tag-bl { bottom: 22%; left: clamp(24px, 9vw, 130px); }
-.hero-tag-tr { top: 22%; right: clamp(16px, 6vw, 90px); }
-.hero-tag-br { bottom: 22%; right: clamp(24px, 9vw, 130px); }
-
-@media (max-width: 1100px) {
-  .hero-tag { font-size: 11px; padding: 8px 14px 8px 12px; }
-  .hero-tag em { font-size: 13px; }
-  .hero-tag-tl, .hero-tag-tr { top: 14%; }
-  .hero-tag-bl, .hero-tag-br { bottom: 14%; }
+.hero-card .card-body {
+  display: flex; flex-direction: column; gap: 4px; min-width: 0;
 }
-@media (max-width: 720px) {
-  .hero-tag { display: none; }
+.hero-card .card-title {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: var(--fg);
+  line-height: 1.25;
+  white-space: nowrap;
+}
+.hero-card .card-desc {
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  line-height: 1.4;
+  color: var(--fg-dim);
+  letter-spacing: -0.005em;
+  text-transform: none;
+  font-weight: 400;
+  white-space: normal;
+}
+
+/* Colored corner dot */
+.hero-card .card-dot {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--card-c, var(--accent));
+  box-shadow: 0 0 12px var(--card-c, var(--accent)), 0 0 0 2px rgba(8,8,8,0.6);
+}
+/* Dots on the edge facing the portrait */
+.hc-left  .hero-card .card-dot { top: -4px; right: 14%; }
+.hc-right .hero-card .card-dot { top: -4px; left:  14%; }
+.hc-cta   .card-dot            { top: -4px; left: 50%; transform: translateX(-50%); }
+
+/* Color variants */
+.hero-card[data-c="rose"]    { --card-c: #ff7e90; }
+.hero-card[data-c="emerald"] { --card-c: #6dc395; }
+.hero-card[data-c="violet"]  { --card-c: #9c84e0; }
+.hero-card[data-c="amber"]   { --card-c: #e8a55c; }
+
+.hero-card[data-c="rose"]    .card-icon { color: #ff7e90; background: rgba(255,126,144,0.08); border-color: rgba(255,126,144,0.22); }
+.hero-card[data-c="emerald"] .card-icon { color: #6dc395; background: rgba(109,195,149,0.08); border-color: rgba(109,195,149,0.22); }
+.hero-card[data-c="violet"]  .card-icon { color: #9c84e0; background: rgba(156,132,224,0.08); border-color: rgba(156,132,224,0.22); }
+.hero-card[data-c="amber"]   .card-icon { color: #e8a55c; background: rgba(232,165,92,0.08); border-color: rgba(232,165,92,0.22); }
+
+.hero-card:hover .card-icon { box-shadow: 0 0 18px -2px var(--card-c, var(--accent)); }
+
+/* Pill variant */
+.hero-card.pill {
+  padding: 10px 22px 10px 10px;
+  border-radius: 100px;
+  align-items: center;
+  width: auto;
+}
+.hero-card.pill .card-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+}
+.hero-card.pill .card-icon svg { width: 16px; height: 16px; }
+
+/* CTA pill — gold accent */
+.hc-cta {
+  cursor: pointer;
+  align-self: center;
+  background: linear-gradient(135deg, rgba(232,165,92,0.16), rgba(232,165,92,0.06));
+  border-color: rgba(232,165,92,0.28);
+}
+.hc-cta:hover {
+  background: linear-gradient(135deg, rgba(232,165,92,0.26), rgba(232,165,92,0.10));
+  border-color: rgba(232,165,92,0.55);
+  box-shadow: 0 22px 50px -16px rgba(232,165,92,0.35);
+}
+
+/* ===== Mobile / tablet: flatten the 3 columns into one 2-column grid ===== */
+@media (max-width: 1099px) {
+  .hero {
+    min-height: 100svh;
+    height: auto;
+    padding-top: clamp(80px, 10vh, 110px);
+  }
+  .hero-stage {
+    flex: 0 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 0 clamp(14px, 4vw, 24px) 24px;
+    align-items: stretch;
+  }
+  /* Flatten wrappers so cards are direct grid items */
+  .hero-col, .hero-center { display: contents; }
+
+  .hero-card {
+    max-width: none;
+    transform: none !important;
+    padding: 12px 14px;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+  }
+  .hero-card .card-title { font-size: 11px; white-space: normal; }
+  .hero-card .card-desc { font-size: 10.5px; }
+  .hero-card .card-icon { width: 34px; height: 34px; }
+  .hero-card .card-icon svg { width: 16px; height: 16px; }
+
+  /* Corner accent dot on mobile */
+  .hero-card .card-dot { top: -4px !important; right: -4px !important; left: auto !important; transform: none !important; }
+
+  .hero-portrait {
+    grid-column: 1 / -1;
+    width: 100%;
+    max-width: min(560px, 92vw);
+    justify-self: center;
+    margin: 14px auto;
+  }
+
+  /* Mobile grid placement (matches your mobile mockup) */
+  .hc-1 { grid-column: 1; grid-row: 1; }
+  .hc-2 { grid-column: 2; grid-row: 1; }
+  .hero-portrait { grid-row: 2; }
+  .hc-3 { grid-column: 1; grid-row: 3; }
+  .hc-4 { grid-column: 2; grid-row: 3; }
+  .hc-5 { grid-column: 1; grid-row: 4; }
+  .hc-6 { grid-column: 2; grid-row: 4; }
+  .hc-7 { display: none; }
+
+  .hc-cta {
+    grid-column: 1 / -1;
+    grid-row: 5;
+    justify-self: center;
+    width: auto;
+    margin-top: 6px;
+    padding: 12px 28px 12px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-card { padding: 10px 12px; gap: 10px; border-radius: 14px; }
+  .hero-card .card-icon { width: 30px; height: 30px; border-radius: 8px; }
+  .hero-card .card-icon svg { width: 14px; height: 14px; }
+  .hero-card .card-title { font-size: 10.5px; letter-spacing: 0.02em; }
+  .hero-card .card-desc { font-size: 10px; line-height: 1.35; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-card, .hero-portrait { opacity: 1 !important; }
 }
 
 .hero-marquee {
@@ -151,9 +308,11 @@
   flex-shrink: 0;
 }
 
+@media (max-width: 900px) {
+  /* on mobile the stage is content-driven, so don't pull the marquee up */
+  .hero-marquee { margin-top: 12px; }
+}
 @media (max-width: 720px) {
-  .hero { padding-top: clamp(56px, 6vh, 80px); }
-  .hero-portrait { padding: 0 clamp(4px, 1.5vw, 12px); }
   .hero-marquee { padding: clamp(4px, 0.6vh, 8px) 0 clamp(8px, 1.5vh, 18px); }
   .hero-marquee .hero-marquee-text { font-size: clamp(48px, 14vw, 120px); }
 }

@@ -34,30 +34,126 @@
 <!-- ============================================ HERO ============================================ -->
 <section class="hero" data-screen-label="01 Hero">
 
+  <div class="hero-stage">
 
-  <div class="hero-portrait">
-    <!--
-    <span class="hero-tag hero-tag-tl" data-metal="brass">
-      <span class="hero-tag-dot"></span>Software Development
-    </span>
-    <span class="hero-tag hero-tag-bl" data-metal="emerald">
-      <span class="hero-tag-dot"></span>6X Marathoner
-    </span>
-    -->
+    <!-- LEFT COLUMN: 3 cards -->
+    <div class="hero-col hc-left">
 
-    <img src="assets/Potrait.png" alt="Aditya Padmarajan" class="hero-portrait-img" loading="eager" decoding="async">
+      <div class="hero-card hc-1" data-c="rose">
+        <span class="card-dot"></span>
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Software Engineer</div>
+          <!--<div class="card-desc">Building scalable, impactful software experiences.</div>-->
+        </div>
+      </div>
 
-    <!--
-    <span class="hero-tag hero-tag-tr" data-metal="violet">
-      <span class="hero-tag-dot"></span><em>Hackathon Winner</em>
-    </span>
-    <span class="hero-tag hero-tag-br" data-metal="steel">
-      <span class="hero-tag-dot"></span><em>AI &amp; Machine Learning</em>
-    </span>
-    -->
+      <div class="hero-card hc-2 pill" data-c="emerald">
+        <span class="card-dot"></span>
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m22 10-10-5L2 10l10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Computer Science @ UVic</div>
+        </div>
+      </div>
+
+      <div class="hero-card hc-3" data-c="violet">
+        <span class="card-dot"></span>
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Full-Stack Developer</div>
+          <!--<div class="card-desc">From robust backends to polished frontends.</div>-->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CENTER: portrait (already includes laptop) + CTA -->
+    <div class="hero-center">
+      <div class="hero-portrait">
+        <img src="assets/Potrait.png" alt="Aditya Padmarajan" loading="eager" decoding="async">
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN: 4 cards -->
+    <div class="hero-col hc-right">
+
+      <div class="hero-card hc-4" data-c="amber">
+        <span class="card-dot"></span>
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2"/>
+            <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-title">AI/ML Enthusiast</div>
+          <!--<div class="card-desc">Exploring intelligent systems and real-world applications.</div>-->
+        </div>
+      </div>
+
+      <div class="hero-card hc-5 pill" data-c="rose">
+        <span class="card-dot"></span>
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="17" cy="5" r="2"/>
+            <path d="m14.5 8.5-3 3 2.5 2.5L11 17"/>
+            <path d="M9 13.5 11.5 14 12 17l-2 4"/>
+            <path d="M7 16H4"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-title">6&times; Marathoner</div>
+        </div>
+      </div>
+
+      <div class="hero-card hc-6 pill" data-c="emerald">
+        <span class="card-dot"></span>
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Victoria, BC</div>
+        </div>
+      </div>
+
+      <div class="hero-card hc-7" data-c="amber">
+        <span class="card-dot"></span>
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+            <path d="M4 22h16"/>
+            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+            <path d="M18 2H6v7a6 6 0 0 0 12 0V2"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Hackathon Winner</div>
+          <!--<div class="card-desc">Love turning ideas into impactful prototypes.</div> -->
+        </div>
+      </div>
+
+    </div>
+
   </div>
 
-  <h1 class="hero-marquee" data-marquee data-speed="35" aria-label="I am Aditya Padmarajan">
+  <h1 class="hero-marquee" data-marquee data-speed="35" aria-label="Aditya Padmarajan">
     <span class="marquee-track" aria-hidden="true">
       <span class="hero-marquee-text">Aditya <em class="rose">Padmarajan</em></span>
       <span class="hero-marquee-sep" aria-hidden="true"></span>
