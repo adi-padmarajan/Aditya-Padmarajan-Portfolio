@@ -55,7 +55,7 @@
   --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
 
   --maxw: 1440px;
-  --gutter: clamp(20px, 4vw, 64px);
+  --gutter: clamp(24px, 4vw, 64px);
 
   --ease: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
