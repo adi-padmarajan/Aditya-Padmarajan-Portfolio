@@ -300,6 +300,14 @@
       dateEl.textContent = `Live · ${month} ${now.getFullYear()}`;
     }
     const marquee  = document.querySelector(".marquee");
+    const heroTags = hero.querySelectorAll(".hero-tag");
+
+    if (heroTags.length) {
+      gsap.fromTo(heroTags,
+        { opacity: 0, y: 16, scale: 0.96 },
+        { opacity: 1, y: 0, scale: 1, duration: 1.1, ease: "expo.out", stagger: 0.12, delay: 0.7 }
+      );
+    }
 
     /* a) Entrance polish — meta, lead, scroll cue rise after title chars */
     if (metaCols.length) {
