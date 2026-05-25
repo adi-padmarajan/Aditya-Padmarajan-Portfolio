@@ -41,37 +41,4 @@
   step();
 })();
 
-/* === Marathon horizontal scroll === */
-(function () {
-  const section = document.getElementById("mar-scroll");
-  if (!section || !window.gsap || !window.ScrollTrigger) return;
-
-  const isMobile = window.matchMedia("(max-width: 900px)").matches;
-  if (isMobile) return; /* mobile uses native horizontal touch scroll */
-
-  const track = section.querySelector(".scroll-track");
-  const progress = document.getElementById("mar-progress");
-
-  const getDistance = () => {
-    const gutterEl = document.querySelector(".wrap");
-    const gutter = gutterEl ? parseFloat(getComputedStyle(gutterEl).paddingLeft) || 24 : 24;
-    return Math.max(0, track.scrollWidth - window.innerWidth + gutter * 2);
-  };
-
-  gsap.to(track, {
-    x: () => -getDistance(),
-    ease: "none",
-    scrollTrigger: {
-      trigger: section,
-      pin: true,
-      scrub: 1,
-      anticipatePin: 1,
-      start: "top top",
-      end: () => `+=${getDistance()}`,
-      invalidateOnRefresh: true,
-      onUpdate: (self) => {
-        if (progress) progress.style.transform = `scaleX(${self.progress})`;
-      },
-    },
-  });
-})();
+/* === Marathon horizontal scroll — native CSS scroll (no JS needed) === */
