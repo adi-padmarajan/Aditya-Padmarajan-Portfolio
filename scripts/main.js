@@ -353,53 +353,6 @@
       hero.addEventListener("mouseleave", () => { xTo(0); yTo(0); skewTo(0); });
     }
 
-    /* c) Scroll-driven exit + marquee handoff */
-    if (!window.ScrollTrigger) return;
-
-    if (title) {
-      gsap.to(title, {
-        yPercent: -22,
-        scale: 1.06,
-        opacity: 0,
-        ease: "none",
-        scrollTrigger: {
-          trigger: hero,
-          start: "top top",
-          end: "bottom top",
-          scrub: 0.8,
-        },
-      });
-    }
-
-    const exitTargets = [lead, cue, status].filter(Boolean);
-    if (exitTargets.length) {
-      gsap.to(exitTargets, {
-        opacity: 0,
-        y: -20,
-        ease: "none",
-        scrollTrigger: {
-          trigger: hero,
-          start: "top top",
-          end: "55% top",
-          scrub: 0.8,
-        },
-      });
-    }
-
-    if (marquee) {
-      gsap.fromTo(marquee,
-        { yPercent: 30, opacity: 0 },
-        {
-          yPercent: 0, opacity: 1, ease: "none",
-          scrollTrigger: {
-            trigger: hero,
-            start: "35% top",
-            end: "bottom top",
-            scrub: 0.8,
-          },
-        }
-      );
-    }
   })();
 
   /* ───────────────────────────────────────────────────────────
