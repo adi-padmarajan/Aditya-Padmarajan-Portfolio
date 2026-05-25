@@ -299,10 +299,17 @@
 <!-- ============================================ MARATHONS ============================================ -->
 <section class="marathon-section section-light" id="marathons" data-screen-label="03 Marathons">
   <div class="wrap">
-    <header class="section-head" data-anim="rise">
+    <header class="section-head section-head--cinema" data-anim="rise">
       <div class="lbl">03 — 42.195 km × 6</div>
-      <h2 class="title">Six Marathons. <em>One Journey</em></h2>
+      <h2 class="title title--cinema">
+        <span class="t-line">Six Marathons.</span>
+        <em class="t-line">One Journey</em>
+      </h2>
     </header>
+
+    <figure class="marathon-photo" data-anim="rise">
+      <img src="assets/Marathon.png" alt="Aditya Padmarajan mid-race during a marathon" loading="lazy" decoding="async">
+    </figure>
 
     <div class="marathon-stats">
       <div class="stat" data-anim="rise" data-metal="brass">
@@ -327,10 +334,22 @@
   <!-- Horizontal scroll gallery -->
   <div class="marathon-h-scroll" id="mar-scroll">
     <div class="scroll-track">
-      <article class="mar-card pr">
+      <article class="mar-card pr" data-metal="brass">
+        <div class="trophy-badge" aria-label="Personal Record">
+          <span class="trophy-glow" aria-hidden="true"></span>
+          <span class="trophy-ring" aria-hidden="true"></span>
+          <svg class="trophy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+            <path d="M4 22h16"/>
+            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+            <path d="M18 2H6v7a6 6 0 0 0 12 0V2"/>
+          </svg>
+          <span class="trophy-label">Personal<br>Record</span>
+        </div>
         <div class="top">
           <div class="num pr">/06</div>
-          <div class="pr-tag">PR</div>
           <div class="glyph">PR</div>
           <div class="km">42.195 KM · −1:20 vs Y1</div>
         </div>
@@ -347,7 +366,7 @@
         </div>
       </article>
 
-      <article class="mar-card">
+      <article class="mar-card" data-metal="steel">
         <div class="top">
           <div class="num">/05</div>
           <div class="glyph">V</div>
@@ -366,7 +385,7 @@
         </div>
       </article>
 
-      <article class="mar-card">
+      <article class="mar-card" data-metal="emerald">
         <div class="top">
           <div class="num">/04</div>
           <div class="glyph">IV</div>
@@ -385,7 +404,7 @@
         </div>
       </article>
 
-      <article class="mar-card">
+      <article class="mar-card" data-metal="violet">
         <div class="top">
           <div class="num">/03</div>
           <div class="glyph">III</div>
@@ -404,7 +423,7 @@
         </div>
       </article>
 
-      <article class="mar-card">
+      <article class="mar-card" data-metal="rose">
         <div class="top">
           <div class="num">/02</div>
           <div class="glyph">II</div>
@@ -423,10 +442,10 @@
         </div>
       </article>
 
-      <article class="mar-card">
+      <article class="mar-card debut" data-metal="pearl">
         <div class="top">
           <div class="num">/01</div>
-          <div class="glyph">first</div>
+          <div class="glyph">I</div>
           <div class="km">42.195 KM · Debut</div>
         </div>
         <div class="body">

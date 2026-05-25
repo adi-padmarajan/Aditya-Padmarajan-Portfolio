@@ -816,6 +816,62 @@
 /* ====== Marathon ====== */
 .marathon-section { padding-bottom: 60px; position: relative; }
 
+/* ===== Cinematic title lockup ===== */
+.marathon-section .section-head--cinema {
+  grid-template-columns: 1fr;
+  gap: 28px;
+  padding: 140px 0 24px;
+  align-items: start;
+}
+.marathon-section .title--cinema {
+  max-width: none;
+  font-size: clamp(64px, 11.5vw, 184px);
+  line-height: 0.94;
+  letter-spacing: -0.035em;
+}
+.marathon-section .title--cinema .t-line {
+  display: block;
+}
+.marathon-section .title--cinema em.t-line {
+  background: var(--metal-brass);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  letter-spacing: -0.02em;
+  margin-top: 6px;
+}
+@media (max-width: 720px) {
+  .marathon-section .section-head--cinema { padding: 100px 0 16px; gap: 18px; }
+  .marathon-section .title--cinema { font-size: clamp(52px, 14vw, 96px); }
+}
+
+/* ===== Race photo (MacBook mockup, no extra chrome) ===== */
+.marathon-photo {
+  margin: 32px auto 0;
+  max-width: 1100px;
+  position: relative;
+}
+.marathon-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 40px 60px rgba(20, 18, 14, 0.18))
+          drop-shadow(0 12px 24px rgba(20, 18, 14, 0.10));
+  transition: transform 1.1s var(--ease-out);
+  will-change: transform;
+}
+.marathon-photo:hover img {
+  transform: translateY(-4px) scale(1.008);
+}
+@media (max-width: 720px) {
+  .marathon-photo { margin-top: 20px; }
+  .marathon-photo img {
+    filter: drop-shadow(0 18px 28px rgba(20, 18, 14, 0.14));
+  }
+}
+
 .marathon-stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -903,87 +959,173 @@
   50% { transform: translateX(6px); }
 }
 
+/* ===== Cinematic marathon cards ===== */
 .mar-card {
+  --card-metal: var(--metal-brass);
+  --card-metal-mid: var(--metal-brass-mid);
+  --card-metal-glow: rgba(212, 165, 116, 0.18);
+
   flex: 0 0 clamp(320px, 32vw, 460px);
-  height: clamp(420px, 62vh, 580px);
-  background: var(--bg-soft);
-  border: 1px solid var(--line);
-  border-radius: 10px;
+  height: clamp(440px, 64vh, 600px);
+  background:
+    radial-gradient(140% 90% at 50% -10%, rgba(255,255,255,0.04), transparent 60%),
+    linear-gradient(180deg, #15130f 0%, #0c0b09 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   position: relative;
-  transition: border-color .4s var(--ease), transform .6s var(--ease-out);
+  isolation: isolate;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.04) inset,
+    0 30px 50px -28px rgba(0, 0, 0, 0.55),
+    0 8px 18px -10px rgba(0, 0, 0, 0.35);
+  transition: transform .7s var(--ease-out), box-shadow .6s var(--ease), border-color .5s var(--ease);
 }
-.mar-card:hover { border-color: var(--accent); }
+
+/* Metal routing */
+.mar-card[data-metal="brass"]   { --card-metal: var(--metal-brass);   --card-metal-mid: var(--metal-brass-mid);   --card-metal-glow: rgba(212,165,116,0.22); }
+.mar-card[data-metal="steel"]   { --card-metal: var(--metal-steel);   --card-metal-mid: var(--metal-steel-mid);   --card-metal-glow: rgba(95,140,184,0.18); }
+.mar-card[data-metal="emerald"] { --card-metal: var(--metal-emerald); --card-metal-mid: var(--metal-emerald-mid); --card-metal-glow: rgba(79,160,122,0.16); }
+.mar-card[data-metal="violet"]  { --card-metal: var(--metal-violet);  --card-metal-mid: var(--metal-violet-mid);  --card-metal-glow: rgba(138,111,200,0.16); }
+.mar-card[data-metal="rose"]    { --card-metal: var(--metal-rose);    --card-metal-mid: var(--metal-rose-mid);    --card-metal-glow: rgba(212,154,166,0.16); }
+.mar-card[data-metal="pearl"]   { --card-metal: var(--metal-pearl);   --card-metal-mid: var(--metal-pearl-mid);   --card-metal-glow: rgba(224,224,230,0.14); }
+
+/* Metallic top edge — like a medal ribbon stripe */
+.mar-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--card-metal);
+  background-size: 220% 100%;
+  animation: metalShine 9s linear infinite;
+  opacity: 0.85;
+  z-index: 4;
+}
+
+/* Inner ambient glow keyed to metal */
+.mar-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(80% 50% at 50% 0%, var(--card-metal-glow), transparent 65%);
+  pointer-events: none;
+  opacity: 0.6;
+  transition: opacity .6s var(--ease);
+  z-index: 0;
+}
+
+.mar-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 255, 255, 0.10);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.05) inset,
+    0 40px 70px -28px rgba(0, 0, 0, 0.6),
+    0 14px 28px -12px rgba(0, 0, 0, 0.4);
+}
+.mar-card:hover::after { opacity: 1; }
+
+/* ===== Top stage ===== */
 .mar-card .top {
   flex: 1.2;
   position: relative;
   overflow: hidden;
   background:
-    repeating-linear-gradient(45deg, transparent 0 18px, rgba(212,165,116,0.05) 18px 19px),
-    linear-gradient(140deg, #1a1814 0%, #0e0d0b 60%, #16130e 100%);
+    repeating-linear-gradient(45deg, transparent 0 22px, rgba(255,255,255,0.022) 22px 23px),
+    radial-gradient(120% 80% at 50% 100%, rgba(0,0,0,0.5), transparent 60%),
+    linear-gradient(150deg, #1c1916 0%, #0c0b09 65%, #14110d 100%);
+  z-index: 1;
 }
+/* Subtle vignette dark at the edges */
+.mar-card .top::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 80% at 50% 50%, transparent 40%, rgba(0,0,0,0.45) 100%);
+  pointer-events: none;
+}
+
 .mar-card .top .glyph {
   position: absolute;
   inset: 0;
   display: flex; align-items: center; justify-content: center;
   font-family: var(--font-display);
   font-style: italic;
-  font-size: clamp(64px, 8vw, 112px);
-  color: var(--fg);
-  opacity: 0.18;
-  letter-spacing: -0.03em;
-  transition: opacity .6s var(--ease);
+  font-size: clamp(96px, 11vw, 168px);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  background: var(--card-metal);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  opacity: 0.22;
+  animation: metalShine 12s linear infinite;
+  transition: opacity .6s var(--ease), transform .8s var(--ease-out);
+  z-index: 1;
 }
-.mar-card:hover .top .glyph { opacity: 0.4; color: var(--accent); }
+.mar-card:hover .top .glyph {
+  opacity: 0.55;
+  transform: scale(1.04);
+}
+.mar-card.pr .top .glyph { opacity: 0.38; font-size: clamp(108px, 12vw, 184px); }
+.mar-card.pr:hover .top .glyph { opacity: 0.7; }
+
 .mar-card .top .num {
   position: absolute;
   top: 20px; left: 20px;
   font-family: var(--font-mono);
   font-size: 12px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.18em;
   color: var(--fg-dim);
+  z-index: 2;
 }
 .mar-card .top .num.pr {
-  color: var(--accent);
-}
-.mar-card .top .pr-tag {
-  position: absolute;
-  top: 20px; right: 20px;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  color: var(--accent);
-  border: 1px solid var(--accent);
-  padding: 4px 8px;
-  border-radius: 3px;
+  color: var(--card-metal-mid);
 }
 .mar-card .top .km {
   position: absolute;
-  bottom: 16px; left: 20px;
+  bottom: 18px; left: 20px;
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.14em;
   color: var(--fg-dim);
   display: flex; align-items: center; gap: 8px;
+  z-index: 2;
 }
-.mar-card .top .km::before { content:""; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+.mar-card .top .km::before {
+  content:"";
+  width: 6px; height: 6px;
+  background: var(--card-metal-mid);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--card-metal-glow);
+}
 
+/* ===== Body ===== */
 .mar-card .body {
   flex: 1;
-  padding: clamp(20px, 2vw, 28px);
+  padding: clamp(22px, 2.2vw, 30px);
   display: flex;
   flex-direction: column;
   gap: 14px;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.012) 0%, transparent 40%),
+    linear-gradient(180deg, #100f0d 0%, #0a0908 100%);
+  position: relative;
+  z-index: 2;
 }
 .mar-card .race {
   font-family: var(--font-sans);
   font-weight: 400;
   font-size: clamp(22px, 1.8vw, 26px);
   letter-spacing: -0.02em;
-  line-height: 1.1;
+  line-height: 1.12;
+  color: var(--fg);
 }
 .mar-card .loc {
   font-family: var(--font-mono);
@@ -995,19 +1137,33 @@
 .mar-card .time {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: clamp(48px, 4.8vw, 72px);
+  font-size: clamp(52px, 5.4vw, 84px);
   color: var(--fg);
   line-height: 1;
   letter-spacing: -0.02em;
   margin-top: auto;
 }
-.mar-card.pr .time { color: var(--accent); }
+/* Time gets metal treatment on every card; PR animates it */
+.mar-card .time {
+  background: var(--card-metal);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.mar-card.pr .time {
+  animation: metalShine 5s linear infinite;
+  font-size: clamp(60px, 6.4vw, 96px);
+  filter: drop-shadow(0 4px 18px var(--card-metal-glow));
+}
+
 .mar-card .foot {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-top: 14px;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 .mar-card .date {
   font-family: var(--font-mono);
@@ -1026,7 +1182,117 @@
   gap: 6px;
   transition: color .3s, transform .3s var(--ease);
 }
-.mar-card .strava:hover { color: var(--accent); transform: translateX(3px); }
+.mar-card .strava:hover { color: var(--card-metal-mid); transform: translateX(3px); }
+
+/* ===== PR card — championship treatment ===== */
+.mar-card.pr {
+  flex: 0 0 clamp(360px, 36vw, 520px);
+  border: 1px solid rgba(212, 165, 116, 0.32);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.06) inset,
+    0 0 0 1px rgba(212, 165, 116, 0.08),
+    0 40px 70px -28px rgba(0, 0, 0, 0.6),
+    0 14px 28px -12px rgba(0, 0, 0, 0.4),
+    0 0 60px -10px rgba(212, 165, 116, 0.18);
+}
+.mar-card.pr::before { height: 3px; opacity: 1; animation-duration: 5s; }
+.mar-card.pr:hover {
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.06) inset,
+    0 0 0 1px rgba(212, 165, 116, 0.18),
+    0 50px 90px -28px rgba(0, 0, 0, 0.65),
+    0 18px 36px -14px rgba(0, 0, 0, 0.45),
+    0 0 90px -10px rgba(212, 165, 116, 0.28);
+}
+
+/* Pulsing radial spotlight behind PR card */
+.mar-card.pr::after {
+  background:
+    radial-gradient(70% 50% at 50% 0%, rgba(240, 212, 168, 0.30), transparent 60%),
+    radial-gradient(80% 80% at 50% 100%, rgba(212, 165, 116, 0.06), transparent 70%);
+  animation: prPulse 6s var(--ease) infinite;
+  opacity: 0.9;
+}
+@keyframes prPulse {
+  0%, 100% { opacity: 0.7; }
+  50%      { opacity: 1; }
+}
+
+/* ===== Trophy badge ===== */
+.trophy-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 5;
+  width: 78px;
+  height: 78px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255, 245, 220, 0.35), transparent 55%),
+    linear-gradient(140deg, #8a6438 0%, #d4a574 40%, #f0d4a8 55%, #d4a574 70%, #8a6438 100%);
+  background-size: 200% 200%;
+  animation: trophyShimmer 6s var(--ease) infinite;
+  box-shadow:
+    0 0 0 1px rgba(255, 245, 220, 0.25) inset,
+    0 0 0 2px rgba(10, 9, 8, 0.6),
+    0 8px 22px -6px rgba(0, 0, 0, 0.55),
+    0 0 30px -4px rgba(240, 212, 168, 0.6);
+  color: #2a1d10;
+  transform: rotate(-6deg);
+  transition: transform .6s var(--ease-out);
+}
+.mar-card.pr:hover .trophy-badge { transform: rotate(0deg) scale(1.05); }
+
+.trophy-badge .trophy-glow {
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240, 212, 168, 0.45), transparent 65%);
+  filter: blur(8px);
+  z-index: -1;
+  animation: trophyGlow 3.2s var(--ease) infinite;
+}
+.trophy-badge .trophy-ring {
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  border: 1px dashed rgba(42, 29, 16, 0.45);
+  pointer-events: none;
+}
+.trophy-badge .trophy-icon {
+  width: 26px;
+  height: 26px;
+  stroke: #2a1d10;
+  stroke-width: 1.8;
+  filter: drop-shadow(0 1px 0 rgba(255, 245, 220, 0.5));
+}
+.trophy-badge .trophy-label {
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.15;
+  color: #2a1d10;
+  margin-top: 1px;
+}
+@keyframes trophyShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+@keyframes trophyGlow {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%      { opacity: 0.95; transform: scale(1.08); }
+}
+
+/* Debut card — pearl, slightly muted */
+.mar-card.debut .top .glyph { opacity: 0.16; }
 
 @media (max-width: 900px) {
   .marathon-h-scroll {
@@ -1045,7 +1311,21 @@
   }
   .marathon-h-scroll .progress-bar,
   .marathon-h-scroll .marker { display: none; }
-  .mar-card { scroll-snap-align: start; flex: 0 0 80vw; height: 520px; }
+  .mar-card { scroll-snap-align: start; flex: 0 0 80vw; height: 540px; }
+  .mar-card.pr { flex: 0 0 84vw; height: 580px; }
+}
+
+@media (max-width: 720px) {
+  .trophy-badge {
+    width: 64px;
+    height: 64px;
+    top: 12px;
+    right: 12px;
+  }
+  .trophy-badge .trophy-icon { width: 20px; height: 20px; }
+  .trophy-badge .trophy-label { font-size: 6.5px; letter-spacing: 0.12em; }
+  .mar-card .top .glyph { font-size: clamp(80px, 22vw, 140px); }
+  .mar-card.pr .top .glyph { font-size: clamp(96px, 26vw, 160px); }
 }
 
 /* ====== Contact / CTA ====== */
