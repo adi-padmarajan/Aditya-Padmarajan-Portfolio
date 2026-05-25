@@ -489,6 +489,86 @@
 .project-row:hover .name { color: var(--accent); }
 .project-row:hover .idx { color: var(--accent); }
 
+/* ===== Cinematic watermark numeral ===== */
+.project-row .big-num-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.project-row .big-num {
+  position: absolute;
+  right: -2%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(180px, 26vw, 380px);
+  line-height: 0.82;
+  letter-spacing: -0.06em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(232, 227, 216, 0.05);
+  user-select: none;
+  white-space: nowrap;
+  transition: -webkit-text-stroke-color .8s var(--ease), opacity .8s var(--ease), transform 1.2s var(--ease-out);
+  will-change: transform;
+}
+.project-row:hover .big-num {
+  -webkit-text-stroke-color: rgba(232, 227, 216, 0.14);
+  transform: translateY(-50%) translateX(-2%);
+}
+/* Bring content above the watermark */
+.project-row .idx,
+.project-row .content,
+.project-row .meta { position: relative; z-index: 1; }
+
+/* ===== Winner row — championship treatment ===== */
+.project-row.winner-row::before {
+  background:
+    radial-gradient(50% 100% at 22% 50%, rgba(79, 160, 122, 0.10), transparent 65%),
+    radial-gradient(60% 100% at 78% 50%, rgba(245, 210, 138, 0.06), transparent 70%);
+  opacity: 0.85;
+  animation: winnerPulse 5.5s var(--ease) infinite;
+}
+.project-row.winner-row:hover::before { opacity: 1; }
+@keyframes winnerPulse {
+  0%, 100% { opacity: 0.65; }
+  50%      { opacity: 1; }
+}
+.project-row.winner-row .name {
+  background: var(--metal-emerald);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: metalShine 7s linear infinite;
+}
+.project-row.winner-row .big-num {
+  -webkit-text-stroke-color: rgba(79, 160, 122, 0.10);
+}
+.project-row.winner-row:hover .big-num {
+  -webkit-text-stroke-color: rgba(79, 160, 122, 0.22);
+}
+/* Permanent metallic underline for the winner */
+.project-row.winner-row::after {
+  transform: scaleX(1) !important;
+  opacity: 0.7;
+}
+.project-row.winner-row:hover::after { opacity: 1; }
+
+@media (max-width: 720px) {
+  .project-row .big-num {
+    font-size: clamp(140px, 30vw, 220px);
+    right: -4%;
+    -webkit-text-stroke-width: 0.5px;
+  }
+}
+@media (max-width: 480px) {
+  .project-row .big-num-wrap { display: none; }
+}
+
 /* Hover preview image */
 .project-preview {
   position: absolute;
@@ -816,23 +896,23 @@
 /* ====== Marathon ====== */
 .marathon-section { padding-bottom: 60px; position: relative; }
 
-/* ===== Cinematic title lockup ===== */
-.marathon-section .section-head--cinema {
+/* ===== Cinematic title lockup (reusable) ===== */
+.section-head--cinema {
   grid-template-columns: 1fr;
   gap: 28px;
   padding: 140px 0 24px;
   align-items: start;
 }
-.marathon-section .title--cinema {
+.title--cinema {
   max-width: none;
   font-size: clamp(64px, 11.5vw, 184px);
   line-height: 0.94;
   letter-spacing: -0.035em;
 }
-.marathon-section .title--cinema .t-line {
+.title--cinema .t-line {
   display: block;
 }
-.marathon-section .title--cinema em.t-line {
+.title--cinema em.t-line {
   background: var(--metal-brass);
   background-size: 220% 100%;
   -webkit-background-clip: text;
@@ -841,10 +921,11 @@
   color: transparent;
   letter-spacing: -0.02em;
   margin-top: 6px;
+  animation: metalShine 9s linear infinite;
 }
 @media (max-width: 720px) {
-  .marathon-section .section-head--cinema { padding: 100px 0 16px; gap: 18px; }
-  .marathon-section .title--cinema { font-size: clamp(52px, 14vw, 96px); }
+  .section-head--cinema { padding: 100px 0 16px; gap: 18px; }
+  .title--cinema { font-size: clamp(52px, 14vw, 96px); }
 }
 
 /* ===== Race photo (MacBook mockup, no extra chrome) ===== */
