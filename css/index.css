@@ -1648,7 +1648,10 @@
   .contact-watermark { font-size: clamp(220px, 50vw, 380px); right: -8%; }
 }
 @media (max-width: 720px) {
-  .contact-block { padding: 120px 0 80px; }
+  .contact-block { padding: 120px 0 80px; text-align: center; }
+  .contact-block .label::before { display: none; }
+  .contact-block .ctas { justify-content: center; }
+  .contact-meta { text-align: left; }
   .contact-status { font-size: 9.5px; gap: 8px; padding: 7px 14px 7px 11px; margin-bottom: 24px; }
   .contact-status .status-sep, .contact-status .status-meta { display: none; }
   .contact-block .email { font-size: clamp(18px, 5vw, 24px); padding: 10px 18px 10px 14px; gap: 10px; }
