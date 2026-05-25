@@ -1267,3 +1267,114 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 .foot {
   background: linear-gradient(180deg, var(--bg) 0%, #050504 100%);
 }
+
+/* ============================================================
+   MOBILE / TOUCH PERFORMANCE PASS
+   Disables the expensive GPU-bound effects (blur filters,
+   mix-blend-mode, continuous transform/background animations,
+   backdrop-filter) on touch devices and narrow viewports.
+   These were causing phone heating, lag, and slow paint.
+   The cinematic register survives on desktop where the GPU
+   can handle it.
+   ============================================================ */
+@media (hover: none), (max-width: 900px) {
+  /* --- Sitewide ambient effects (the biggest GPU offenders) --- */
+  .gradient-mesh .blob {
+    animation: none !important;
+    filter: none !important;          /* blur(110px/60px) is the worst on phones */
+    mix-blend-mode: normal !important; /* screen blend is GPU-heavy */
+    opacity: 0.55;
+  }
+  .gradient-mesh .b5 { display: none; } /* drop one of five blobs to cut paint cost */
+  .gradient-mesh::after { display: none; } /* grain dot pattern overlay */
+
+  /* Film grain noise overlay — mix-blend-mode is expensive */
+  body::before { display: none !important; }
+
+  /* Spotlight + ambient orb — fixed-position blurred elements */
+  .spotlight { display: none !important; }
+  .ambient-orb { animation: none !important; filter: blur(40px); opacity: 0.5; }
+
+  /* Backdrop-filter is one of the heaviest mobile operations */
+  .hero-card,
+  .marathon-photo .photo-tag,
+  .trophy-badge,
+  .project-preview .pv-cap,
+  .contact-status,
+  .hero-intro .hero-status {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  /* --- Hero --- */
+  .hero-figure img {
+    animation: none !important;
+    /* Lighter drop shadow — phones repaint this every frame during scroll */
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.45)) !important;
+  }
+  .hero-figure .figure-glow { animation: none !important; opacity: 0.55; }
+
+  /* --- Marathon cards --- */
+  .mar-card::before,
+  .mar-card .top .glyph,
+  .mar-card .time,
+  .mar-card.pr::after,
+  .trophy-badge,
+  .trophy-badge .trophy-glow,
+  .marathon-photo .photo-tag .t-dot {
+    animation: none !important;
+  }
+  .mar-card .top .glyph { opacity: 0.18; } /* compensate for no shimmer */
+
+  /* --- Award badges --- */
+  .award-gold { animation: none !important; }
+
+  /* --- Project rows --- */
+  .project-row.winner-row::before,
+  .project-row.winner-row .name,
+  .project-row::after {
+    animation: none !important;
+  }
+
+  /* --- Contact --- */
+  .contact-status .status-dot,
+  .contact-block .email .email-dot,
+  .contact-block .email .email-text,
+  .foot h3 .h3-dot,
+  .foot-signature em {
+    animation: none !important;
+  }
+
+  /* --- Hero status pill --- */
+  .hero-intro .hero-status .status-dot,
+  .hero-intro .hero-title em.t-line {
+    animation: none !important;
+  }
+
+  /* --- Marathon section watermark numerals are heavy paint targets --- */
+  .project-row .big-num-wrap { display: none; }
+
+  /* --- Buttons --- */
+  .btn-metal,
+  .btn.btn-metal {
+    animation: none !important;
+  }
+
+  /* Remove will-change on idle elements (reserves GPU memory) */
+  .gradient-mesh .blob,
+  .hero-figure img,
+  .marathon-h-scroll .scroll-track {
+    will-change: auto;
+  }
+}
+
+/* Honor user's reduced-motion preference everywhere */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .spotlight, .ambient-orb, body::before { display: none !important; }
+}

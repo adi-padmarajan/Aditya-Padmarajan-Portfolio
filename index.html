@@ -10,6 +10,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600&display=swap">
 
+<link rel="preload" as="image" href="assets/Potrait@1400.png" fetchpriority="high">
+
 <link rel="stylesheet" href="css/styles.css">
 <link rel="stylesheet" href="css/index.css">
 
@@ -71,7 +73,7 @@
     <!-- RIGHT: portrait (MacBook mockup, enlarged) -->
     <div class="hero-figure" data-anim="rise">
       <span class="figure-glow" aria-hidden="true"></span>
-      <img src="assets/Potrait.png" alt="Aditya Padmarajan" loading="eager" decoding="async">
+      <img src="assets/Potrait@1400.png" alt="Aditya Padmarajan" width="1400" height="1011" loading="eager" decoding="async" fetchpriority="high">
     </div>
 
   </div>
@@ -229,7 +231,7 @@
     </header>
 
     <figure class="marathon-photo" data-anim="rise">
-      <img src="assets/Marathon.png" alt="Aditya Padmarajan mid-race during a marathon" loading="lazy" decoding="async">
+      <img src="assets/Marathon.jpg" alt="Aditya Padmarajan mid-race during a marathon" width="1400" height="898" loading="lazy" decoding="async">
     </figure>
 
     <div class="marathon-stats">
@@ -485,11 +487,11 @@
 </footer>
 
 <!-- ===== Scripts ===== -->
-<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="scripts/main.js"></script>
-<script src="scripts/index.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="scripts/main.js" defer></script>
+<script src="scripts/index.js" defer></script>
 
 </body>
 </html>
