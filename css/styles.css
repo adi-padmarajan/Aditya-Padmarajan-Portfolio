@@ -410,10 +410,58 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
 
 .foot {
   padding: 80px var(--gutter) 32px;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid transparent;
   margin-top: 120px;
+  position: relative;
+  overflow: hidden;
 }
+/* Brass metallic top divider */
+.foot::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(212, 165, 116, 0.15) 20%,
+    var(--accent) 50%,
+    rgba(212, 165, 116, 0.15) 80%,
+    transparent 100%);
+}
+
+/* Massive signature watermark */
+.foot-signature {
+  position: absolute;
+  left: -2%;
+  bottom: -8%;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(180px, 24vw, 360px);
+  line-height: 0.82;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(232, 227, 216, 0.04);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  white-space: nowrap;
+}
+.foot-signature em {
+  font-family: var(--font-display);
+  font-style: italic;
+  background: var(--metal-brass);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 0;
+  animation: metalShine 9s linear infinite;
+  margin-left: -0.05em;
+}
+
 .foot .row {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 40px;
@@ -427,23 +475,76 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   color: var(--fg-dim);
   margin-bottom: 18px;
   font-weight: 400;
-}
-.foot ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-.foot a { transition: color .3s; }
-.foot a:hover { color: var(--accent); }
-.foot .legal {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+.foot h3 .h3-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--metal-brass);
+  background-size: 200% 100%;
+  animation: metalShine 6s linear infinite;
+  box-shadow: 0 0 8px rgba(212, 165, 116, 0.5);
+}
+.foot ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.foot ul a, .foot ul li {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  font-size: 14px;
+  transition: color .3s;
+}
+.foot ul a {
+  background-image: linear-gradient(90deg, var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  padding-bottom: 2px;
+  transition: color .3s, background-size .5s var(--ease-out);
+}
+.foot a:hover {
+  color: var(--accent);
+  background-size: 100% 1px;
+}
+.foot .legal {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
   font-family: var(--font-mono);
   font-size: 11px;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
   color: var(--fg-dim);
   padding-top: 32px;
   border-top: 1px solid var(--line);
 }
+.foot .legal .legal-sep {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.5;
+}
+.foot .legal .legal-meta {
+  color: var(--fg);
+  opacity: 0.7;
+}
 @media (max-width: 720px) {
   .foot .row { grid-template-columns: 1fr; gap: 32px; }
-  .foot .legal { flex-direction: column; gap: 8px; }
+  .foot .legal {
+    flex-direction: column;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  .foot .legal .legal-sep { display: none; }
+  .foot-signature { font-size: clamp(140px, 38vw, 220px); bottom: -6%; }
 }
 
 /* ========== Page entrance animations (initial state) ========== */
@@ -746,6 +847,26 @@ button { font: inherit; background: none; border: 0; color: inherit; cursor: poi
   border: 1px solid var(--accent);
 }
 .btn-metal:hover { transform: scale(1.04); filter: brightness(1.1); }
+/* Stronger specificity to defeat .btn:hover when both classes are applied */
+.btn.btn-metal {
+  padding: 18px 28px;
+  background: var(--metal);
+  background-size: 200% 100%;
+  color: var(--bg);
+  border: 1px solid var(--accent);
+  animation: metalShine 8s linear infinite;
+  box-shadow: 0 10px 30px -12px rgba(212, 165, 116, 0.55);
+}
+.btn.btn-metal:hover {
+  background: var(--metal);
+  background-size: 200% 100%;
+  color: var(--bg);
+  border-color: var(--accent-bright);
+  transform: scale(1.04) translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow: 0 16px 40px -10px rgba(212, 165, 116, 0.7);
+}
+.btn.btn-metal .arrow { color: var(--bg); }
 
 /* ============================================================
    GLYPH PADDING — italic + metallic text needs inline-block
